@@ -1,0 +1,576 @@
+@font-face {
+    font-family: "Interstate";
+    src: url(fonts/Interstate-Regular.woff);
+}
+@font-face {
+    font-family: "Interstate Bold";
+    src: url(fonts/Interstate-Bold.woff);
+}
+@font-face {
+    font-family: "Interstate Bold Italic";
+    src: url(fonts/Interstate-BoldItalic.ttf);
+}
+@font-face {
+    font-family: "Interstate Black";
+    src: url(fonts/Interstate-Black.ttf);
+}
+@font-face {
+    font-family: "Interstate Black Cn";
+    src: url(fonts/Interstate-BlackCondensed.woff);
+}
+@font-face {
+    font-family: "Interstate Bold Cn";
+    src: url(fonts/Interstate-BoldCondensed.woff);
+}
+
+a, body, div, h1, html, p {
+    margin: 0;
+    padding: 0;
+    font-family: "Interstate Bold", Arial, Helvetica;
+    letter-spacing: 1px;
+    color: #d4d4d4;
+    font-style: normal;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+html * {
+    box-sizing: border-box;
+    font-size: 100%
+}
+
+body, html {
+    height: 100%;
+    background-color: #000;
+    font-size: 100%
+}
+
+#main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    pointer-events: none;
+}
+#background {
+    position: absolute;
+    background-image: url(images/domestic.png);
+    background-size: cover;
+}
+.current-conditions .box {
+    position: absolute;
+    background-image: url(images/boxes/current_box.png);
+    background-size: cover;
+    /* opacity: 0; */
+}
+.eight-cities .box {
+    position: absolute;
+    background-image: url(images/boxes/local_obs_box.png);
+    background-size: cover;
+    /* opacity: 0; */
+}
+.local-forecast .box {
+    position: absolute;
+    background-image: url(images/boxes/text_forecast_box.png);
+    background-size: cover;
+    /* opacity: 0; */
+}
+.week-ahead .box {
+    position: absolute;
+    background-image: url(images/boxes/7_day_box.png);
+    background-size: cover;
+    /* opacity: 0; */
+}
+.air-quality .box {
+    position: absolute;
+    background-image: url(images/boxes/aq_1_box.png);
+    background-size: cover;
+    /* opacity: 0; */
+}
+.almanac .box {
+    position: absolute;
+    background-image: url(images/boxes/alm_climo_box.png);
+    background-size: cover;
+    /* opacity: 0; */
+}
+.ldl .logo {
+    background-image: url(images/twcDomesticLogo.png);
+    z-index: 10000;
+}
+.ldl .weathercomlogo {
+    background-image: url(images/weatherDotComLogo.png);
+}
+.week-ahead .weekend {
+    background-image: url(images/weekend_rectangle.png);
+}
+.air-quality .qualityarrow {
+    background-image: url(images/aqarrow.png);
+}
+.radar .banner {
+    background-image: url(images/boxes/radar_banner.png);
+    /* opacity: 0; */
+}
+.satellite .banner {
+    background-image: url(images/boxes/radar_satellite_banner.png);
+    /* opacity: 0; */
+}
+.daypart-forecast .box {
+    position: absolute;
+    background-image: url(images/boxes/daypart_box.png);
+    background-size: 100%;
+    /* opacity: 0; */
+}
+.bulletin {
+    background-image: url(images/domesticBulletin.png);
+    position: absolute;
+    background-size: 100%;
+}
+.bulletin .box {
+    position: absolute;
+    background-image: url(images/boxes/nws_headlines_box.png);
+    background-size: cover;
+    /* opacity: 0; */
+}
+.bulletin .noaalogo {
+    position: absolute;
+    background-image: url(images/noaaLogo.png);
+    background-size: cover;
+}
+.map .box {
+    position: absolute;
+    background-image: url(images/boxes/map_banner.png);
+    background-size: cover;
+}
+
+/*Settings Panel*/
+#settings-menu {
+    position: absolute;
+    transform: translate(50%, 50%);
+    will-change: transform;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    z-index: 100;
+}
+#blackscreen {
+    transform: translate(50%, 50%);
+    will-change: transform;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    width: 1624px;
+    height: 1084px;
+}
+#settings-menu #basic, #morelocation, #moreflavor {
+    width: 1280px;
+    height: 720px;
+    border-radius: 4px;
+    position: absolute;
+    bottom: 16.7%;
+    left: 10.5%;
+}
+#settings-menu .box {
+    width: 1280px;
+    height: 720px;
+    position: absolute;
+    background-image: url(images/boxes/aq_1_box.png);
+    background-size: 100% 100%;
+}
+#settings-menu .boxheader, #settings-menu .version {
+    position: absolute;
+    transform: scaleY(0.91);
+    font-size: 52px;
+    margin-left: 20px;
+    margin-top: 12px;
+}
+#settings-menu .version {
+    right: 25px;
+}
+#settings-menu .location, #settings-menu .flavor,
+#settings-menu .versions, #settings-menu .songs,
+#settings-menu .enablevl {
+    position: absolute;
+    display: flex;
+    top: 10%;
+    width: 1263px;
+    height: 70px;
+    left: 10px;
+}
+#settings-menu .flavor {
+    margin-top: 70px;
+}
+#settings-menu .versions {
+    margin-top: 140px;
+}
+#settings-menu .songs {
+    margin-top: 210px;
+}
+#settings-menu .enablevl {
+    margin-top: 280px;
+}
+#settings-menu .loctext, 
+#settings-menu .flavortext,
+#settings-menu .versionstext,
+#settings-menu .songstext, .songoffsettext,
+#settings-menu .enablevltext {
+    color: inherit;
+    top: 50px;
+    position: absolute;
+    font-size: 40px;
+    left: 55px;
+}
+.songoffsettext {
+    left: 480px;
+}
+#locsearchlookup, #advlocsearchlookup,
+#extranameinput {
+    position: absolute;
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 2px solid #232731;
+    background-color: rgba(255,255,255);
+    z-index: 100000;
+}
+#locsearchlookup {
+    top: 53px;
+    left: 785px;
+}
+#advlocsearchlookup {
+    left: 750px;
+    margin-top: 10%;
+    width: 400px;
+}
+#extranameinput {
+    left: 750px;
+    width: 400px;
+    margin-top: 13.5%;
+}
+#locsearch, #extralocbutton, #uploadsongbutton, #advlocsearch, #extranameconfirm {
+    position: absolute;
+    right: 80px;
+    top: 53px;
+    width: 50px;
+    height: 38px;
+    font-size: 36px;
+    border: none;
+    background-color: #232731;
+    z-index: 100001;
+}
+#advlocsearch {
+    margin-top: 75px;
+}
+#extranameconfirm {
+    margin-top: 119.5px;
+}
+.locsearchtext {
+    position: absolute;
+    bottom: 25%;
+    left: 62%;
+    font-size: 28px;
+    font-family: "Interstate";
+}
+#extralocbutton {
+    right: 30px;
+    color: white;
+}
+#extralocbutton div {
+    margin-top: -15px;
+}
+#locsearch:hover, #advlocsearch:hover, #extralocbutton:hover, button:hover {
+    background-color: #323741;
+    cursor: pointer;
+}
+.flavorbutton {
+    z-index: 10000;
+    position: absolute;
+    top: 53px;
+    width: 70px;
+    height: 38px;
+    font-size: 36px;
+    border: none;
+    background-color: #232731;
+}
+.versionsbutton {
+    z-index: 10000;
+    position: absolute;
+    top: 53px;
+    width: 140px;
+    height: 38px;
+    font-size: 36px;
+    border: none;
+    background-color: #232731;
+}
+.flavorbutton div,
+.versionsbutton div {
+    margin-top: -3px;
+}
+button#flavor60{
+    left: 375px;
+}
+button#flavor90{
+    left: 450px;
+}
+button#flavor120{
+    left: 525px;
+    width: 80px;
+}
+button#flavormore{
+    left: 610px;
+}
+button#versions2007 {
+    left: 375px;
+}
+button#versions2008 {
+    left: 520px;
+}
+#flavormore div {
+    margin-top: -15px;
+}
+.moreflavortext {
+    position: absolute;
+    color: inherit;
+    font-size: 48px;
+    width: 640px;
+    text-align: center;
+    top: 33%;
+    left: 320px;
+}
+#backbutton {
+    background-color: #232731;
+    position: absolute;
+    font-size: 36px;
+    color: white;
+    bottom: 8%;
+    left: 3%;
+    border: none;
+    width: 45.5%
+}
+
+.extraadvbutton {
+    background-color: #232731;
+    position: absolute;
+    font-size: 36px;
+    color: white;
+    bottom: 8%;
+    border: none;
+}
+
+.extraadvbutton div {
+    transform: scaleY(0.91);
+    color: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#cookiessave {
+    bottom: 1%;
+    left: 36.5%;
+    width: 29%;
+}
+
+#downloadconfig {
+    left: 3%;
+    bottom: 1%;
+    width: 33%;
+}
+
+#cookiesload {
+    left: 66%;
+    bottom: 1%;
+    width: 32.6%;
+}
+
+#savebutton {
+    left: 49%;
+    width: 49.5%
+}
+
+#loadconfig {
+    left: 3%;
+    bottom: -6%;
+    width: 95.5%
+}
+
+
+
+
+#backbutton:hover {
+    background-color: #3237419f;
+    cursor: pointer;
+}
+#backbutton div {
+    transform: scaleY(0.91);
+    color: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#songinput {
+    position: absolute;
+    font-size: 28px;
+    margin-top: 55px;
+    left: 180px;
+    width: 230px;
+    z-index: 50000;
+}
+#songoffsetinput {
+    position: absolute;
+    font-size: 28px;
+    width: 60px;
+    margin-top: 55px;
+    left: 630px;
+    z-index: 50000;
+}
+#songinput option {
+    font-size: 15px;
+}
+#songuploadinput {
+    position: absolute;
+    margin-top: 55px;
+    left: 520px;
+    width: 50px;
+    height: 38px;
+    opacity: 0;
+}
+#uploadsongbutton {
+    left: 420px;
+    margin-top: 2.5px;
+}
+#uploadsongbutton:hover {
+    background-color: #3237419f;
+    cursor: pointer;
+}
+
+.loccontainer .mainloc,
+.loccontainer .mainextraloc {
+    color: inherit;
+    position: absolute;
+    font-size: 36px;
+    margin-top: 10%;
+    left: 100px;
+}
+.mainextraloc {
+    margin-top: 13.5% !important;
+}
+#enablevlcb {
+    position: absolute;
+    margin-top: 54px;
+    width: 50px;
+    height: 38px;
+    left: 580px;
+    z-index: 100000;
+}
+.extracitiesheader {
+    color: inherit;
+    font-size: 36px;
+}
+.extracities {
+    position: absolute;
+    margin-top: 17%;
+    left: 100px;
+}
+.extrasearch {
+    border: none;
+    width: 44px;
+    height: 32px;
+    background-color: #232731;
+    position: absolute;
+    left: 610px;
+}
+.extralookups {
+    position: absolute;
+    height: 32px;
+    width: 200px;
+    left: 400px;
+}
+.extracity.i {
+    margin-top: 10px;
+}
+.extracity.ii {
+    margin-top: 50px;
+}
+.extracity.iii {
+    margin-top: 90px;
+}
+.extracity.iv {
+    margin-top: 130px;
+}
+.extracity.v {
+    margin-top: 170px;
+}
+.extracity.vi {
+    margin-top: 210px;
+}
+.extracity.vii {
+    margin-top: 250px;
+}
+.extracity.viii {
+    margin-top: 290px;
+}
+.extracity {
+    color: inherit;
+}
+.extrcitydisplayname {
+    position: absolute;
+    font-size: 32px;
+    color: inherit;
+}
+.extracitytext {
+    position: absolute;
+    top: -129px;
+    font-size: 28px;
+    width: 1280px;
+    left: -98px;
+    text-align: center;
+}
+#startbutton {
+    position: absolute;
+    bottom: 10%;
+    width: 200px;
+    height: 72px;
+    border: none;
+    background-color: #232731;
+    font-size: 36px;
+    color: white;
+    left: 540px;
+}
+
+.loadoptionswarning {
+  position: absolute;
+  bottom: -10%;
+  width: 1280px;
+  text-align: center;
+  font-size: 24px;
+  color: inherit;
+}
+
+h3#promo, h3#promoii {
+    position: absolute;
+    font-size: 48px;
+    font-family: "Interstate Bold Cn";
+    top: 670px;
+}
+h3#promo {
+    left: 150px;
+}
+h3#promoii {
+    left: 555px;
+}
+.jwx {
+    background-image: url(images/jwx.svg);
+    background-size: 100% 100%;
+    width: 181px;
+    height: 98px;
+    position: absolute;
+    top: 670px;
+    left: 375px;
+    z-index: 1000;
+}
+.mistpromo {
+    background-image: url(images/mistlogo2025.png);
+    background-size: 100% 100%;
+    width: 251.5px;
+    height: 120px;
+    position: absolute;
+    top: 670px;
+    left: 920px;
+    filter: drop-shadow(2px 2px 5px black);
+    z-index: 1000;
+}

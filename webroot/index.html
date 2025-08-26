@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Intellistar Simulator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="main.css">
+    <div id="styles">
+        <link rel="stylesheet" href="css/intellistar-32-2008.css">
+    </div>
+
+    <link rel="preload" as="image" href="images/LDL.png">
+    <link rel="preload" as="image" href="images/LDL2.png">
+    <link rel="preload" as="image" href="images/settings/search.png">
+    <link rel="preload" as="image" href="images/settings/upload.png">
+
+    <link rel="preload" as="image" href="images/icons/2007/large/SctTs.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/NSctTs.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/Ts.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/PMTs.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/AMTs.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/Thun.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/DPc.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/DClrB12.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/MSun.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/Sun.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/DMc.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/Cld.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/NPc.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/NClrB12.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/NClr.apng">
+    <link rel="preload" as="image" href="images/icons/2007/large/NMc.apng">
+
+    <link rel="preload" as="image" href="images/boxes/7_day_box.png">
+    <link rel="preload" as="image" href="images/boxes/alm_climo_box.png">
+    <link rel="preload" as="image" href="images/boxes/aq_1_box.png">
+    <link rel="preload" as="image" href="images/boxes/current_box.png">
+    <link rel="preload" as="image" href="images/boxes/daypart_box.png">
+    <link rel="preload" as="image" href="images/boxes/local_obs_box.png">
+    <link rel="preload" as="image" href="images/boxes/map_banner.png">
+    <link rel="preload" as="image" href="images/boxes/nws_headlines_box.png">
+    <link rel="preload" as="image" href="images/boxes/outdoor_activity_box.png">
+    <link rel="preload" as="image" href="images/boxes/radar_banner.png">
+    <link rel="preload" as="image" href="images/boxes/radar_satellite_banner.png">
+    <link rel="preload" as="image" href="images/boxes/school_day_weather_box.png">
+    <link rel="preload" as="image" href="images/boxes/text_forecast_box.png">
+    <link rel="preload" as="image" href="images/domestic.png">
+    <link rel="preload" as="image" href="images/twcDomesticLogo.png">
+    <link rel="preload" as="image" href="images/maps/regional_map.png">
+    <link rel="preload" as="image" href="images/Advisory.png">
+    <link rel="preload" as="image" href="images/Warning.png">
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://unpkg.com/maplibre-gl@2.1.7/dist/maplibre-gl.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@2.1.7/dist/maplibre-gl.css' rel='stylesheet' />
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jplayer/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="js/utils/date_fns.min.js"></script>
+    <script type="text/javascript" src="js/utils/date_fns.min.js.map"></script>
+    <script type="text/javascript" src="js/utils/vocallocaldata.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.marquee@1.5.0/jquery.marquee.min.js"
+        type="text/javascript"></script>
+
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/extras.js"></script>
+    <script type="text/javascript" src="js/audio.js"></script>
+    <script type="text/javascript" src="js/vocallocal.js"></script>
+    <script type="text/javascript" src="js/newlocation.js"></script>
+    <script type="text/javascript" src="js/weather.js"></script>
+    <script type="text/javascript" src="js/radar.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/ldl.js"></script>
+    <script type="text/javascript" src="js/slides.js"></script>
+    <div id="blackscreen" class="container"
+        style="position: absolute; z-index: 2000; background-color: black; display: none;"></div>
+    <div id="main">
+        <div id="background"></div>
+        <div class="slides">
+            <div class="current-conditions" style="display: none;">
+                <div class="header" style="display: none;">Now</div>
+                <div class="box" style="display: none;"></div>
+                <div class="city-name"></div>
+                <div class="left-pane">
+                    <div class="icon"
+                        style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                    <div class="cond"></div>
+                    <div class="temp"></div>
+                </div>
+                <div class="right-pane">
+                    <div class="labels">
+                        HUMIDITY<br>DEW POINT<br>PRESSURE<br>VISIBILITY<br>WIND<br>GUSTS<br>
+                    </div>
+                    <div class="humidity"></div>
+                    <div class="dewpoint"></div>
+                    <div class="pressure">
+                        <div class="data"></div>
+                        <div class="inches">INCHES</div>
+                        <div class="trend">S</div>
+                    </div>
+                    <div class="visibility">
+                        <div class="data"></div>
+                        <div class="miles">MILES</div>
+                    </div>
+                    <div class="wind"></div>
+                    <div class="gusts">
+                        <div class="none" style="display: none;">None</div>
+                        <div class="data"></div>
+                        <div class="miles">MPH</div>
+                    </div>
+                    <div class="feelslike" style="display: none;"></div>
+                </div>
+            </div>
+            <div class="eight-cities" style="display: none;">
+                <div class="header" style="display: none;">Now</div>
+                <div class="box" style="display: none;"></div>
+                <div class="top">
+                    <div class="temp">TEMP</div>
+                    <div class="wind">WIND (mph)</div>
+                </div>
+                <div class="information">
+                    <div class="extra-loc i">
+                        <div class="name"></div>
+                        <div class="temp"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="wind">
+                            <div class="direction"></div>
+                            <div class="speed"></div>
+                        </div>
+                    </div>
+                    <div class="extra-loc ii">
+                        <div class="name"></div>
+                        <div class="temp"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="wind">
+                            <div class="direction"></div>
+                            <div class="speed"></div>
+                        </div>
+                    </div>
+                    <div class="extra-loc iii">
+                        <div class="name"></div>
+                        <div class="temp"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="wind">
+                            <div class="direction"></div>
+                            <div class="speed"></div>
+                        </div>
+                    </div>
+                    <div class="extra-loc iv">
+                        <div class="name"></div>
+                        <div class="temp"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="wind">
+                            <div class="direction"></div>
+                            <div class="speed"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="local-forecast" style="display: none;">
+                <div class="header" style="display: none;">Local Forecast</div>
+                <div class="box" style="display: none;"></div>
+                <div class="city-name"></div>
+                <div class="information">
+                    <div class="period"></div>
+                    <div class="description"></div>
+                </div>
+                <div class="desc-mov"
+                    style="background-image: url(images/localforecast/cloudy.png); background-size: 100%;"></div>
+            </div>
+            <div class="week-ahead" style="display: none;">
+                <div class="header" style="display: none;">The Week Ahead</div>
+                <div class="box" style="display: none;"></div>
+                <div class="city-name"></div>
+                <div class="information">
+                    <div class="day i">
+                        <div class="weekend" style="display: none;"></div>
+                        <div class="name"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="cond"></div>
+                        <div class="high"></div>
+                        <div class="low"></div>
+                    </div>
+                    <div class="day ii">
+                        <div class="weekend" style="display: none;"></div>
+                        <div class="name"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="cond"></div>
+                        <div class="high"></div>
+                        <div class="low"></div>
+                    </div>
+                    <div class="day iii">
+                        <div class="weekend" style="display: none;"></div>
+                        <div class="name"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="cond"></div>
+                        <div class="high"></div>
+                        <div class="low"></div>
+                    </div>
+                    <div class="day iv">
+                        <div class="weekend" style="display: none;"></div>
+                        <div class="name"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="cond"></div>
+                        <div class="high"></div>
+                        <div class="low"></div>
+                    </div>
+                    <div class="day v">
+                        <div class="weekend" style="display: none;"></div>
+                        <div class="name"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="cond"></div>
+                        <div class="high"></div>
+                        <div class="low"></div>
+                    </div>
+                    <div class="day vi">
+                        <div class="weekend" style="display: none;"></div>
+                        <div class="name"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="cond"></div>
+                        <div class="high"></div>
+                        <div class="low"></div>
+                    </div>
+                    <div class="day vii">
+                        <div class="weekend" style="display: none;"></div>
+                        <div class="name"></div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/blank.apng); background-size: 100% 100%;"></div>
+                        <div class="cond"></div>
+                        <div class="high"></div>
+                        <div class="low"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="air-quality" style="display: none;">
+                <div class="header" style="display: none;">Air Quality Forecast</div>
+                <div class="box" style="display: none;"></div>
+                <div class="city-name"></div>
+                <div class="day">:</div>
+                <div class="primpollut">
+                    <div class="header-text">Primary pollutant:</div>
+                    <div class="pollutants">
+
+                    </div>
+                </div>
+                <div class="qualitybar">
+                    <div class="extreme"><span class="text" style="display: none;">EXTREME</span></div>
+                    <div class="high"><span class="text" style="display: none;">HAZARDOUS</span></div>
+                    <div class="unhealthy"><span class="text" style="display: none;">UNHEALTHY FOR SENSITIVE
+                            GROUPS</span></div>
+                    <div class="moderate"><span class="text" style="display: none;">MODERATE</span></div>
+                    <div class="low"><span class="text" style="display: none;">GOOD</span></div>
+                </div>
+                <div class="qualityarrow" style="display: none;"></div>
+                <div class="source">SOURCE: EPA</div>
+            </div>
+            <div class="almanac" style="display: none;">
+                <div class="header" style="display: none;">Almanac</div>
+                <div class="box" style="display: none;"></div>
+                <div class="day i">
+                    <div class="almheader"></div>
+                    <div class="sunrise"></div>
+                    <div class="sunset"></div>
+                </div>
+                <div class="day ii">
+                    <div class="almheader"></div>
+                    <div class="sunrise"></div>
+                    <div class="sunset"></div>
+                </div>
+                <div class="sunrise-text">SUNRISE</div>
+                <div class="sunset-text">SUNSET</div>
+                <div class="stationname"></div>
+                <div class="bottomheader">
+                    <div class="almdate"></div>
+                    <div class="high">HIGH</div>
+                    <div class="low">LOW</div>
+                </div>
+                <div class="yesterday">
+                    <div class="y-header">Yesterday's Actual</div>
+                    <div class="high"></div>
+                    <div class="low"></div>
+                </div>
+                <div class="average">
+                    <div class="a-header">Today's Average</div>
+                    <div class="high"></div>
+                    <div class="low"></div>
+                </div>
+                <div class="records">
+                    <div class="r-header">Today's Records</div>
+                    <div class="highyear"></div>
+                    <div class="high"></div>
+                    <div class="lowyear"></div>
+                    <div class="low"></div>
+                </div>
+            </div>
+            <div class="almanac-moons">
+
+            </div>
+            <div class="outdoor-activity">
+
+            </div>
+            <div class="radar" style="display:none;">
+                <div class="header" style="display:none;">Regional Doppler</div>
+                <div class="hourloop">3 Hour Loop</div>
+                <div class="key">light<img src="images/radarLegend.png"><span>heavy</span></div>
+                <div class="banner"></div>
+                <div id="locradar" style="display:none;"></div>
+                <div id="locmap" style="display:none;"></div>
+                <div id="regradar" style="display:none;"></div>
+                <div id="regmap" style="display:none;"></div>
+            </div>
+            <div class="satellite" style="display: none;">
+                <div class="header">Radar Satellite</div>
+                <div class="hourloop">5 Hour Loop</div>
+                <div class="key">light<img src="images/radarLegend.png"><span>heavy</span></div>
+                <div class="banner"></div>
+                <div id="radarsat" style="display:none;"></div>
+            </div>
+            <div class="daypart-forecast" style="display:none;">
+                <div class="header" style="display:none;">Daypart Forecast</div>
+                <div class="box" style="display:none;"></div>
+                <div class="city-name"></div>
+                <div class="forecast-period"></div>
+                <div class="information">
+                    <div class="hour i">
+                        <div class="time"></div>
+                        <div class="icon" style="background-image: url(images/icons/blank.apng); background-size: 100%">
+                        </div>
+                        <div class="cond"></div>
+                        <div class="bar" style="height: 0px;">
+                            <div class="temp" style="display: none;"></div>
+                        </div>
+                        <div class="wind"></div>
+                    </div>
+                    <div class="hour ii">
+                        <div class="time"></div>
+                        <div class="icon" style="background-image: url(images/icons/blank.apng); background-size: 100%">
+                        </div>
+                        <div class="cond"></div>
+                        <div class="bar" style="height: 0px;">
+                            <div class="temp" style="display: none;"></div>
+                        </div>
+                        <div class="wind"></div>
+                    </div>
+                    <div class="hour iii">
+                        <div class="time"></div>
+                        <div class="icon" style="background-image: url(images/icons/blank.apng); background-size: 100%">
+                        </div>
+                        <div class="cond"></div>
+                        <div class="bar" style="height: 0px;">
+                            <div class="temp" style="display: none;"></div>
+                        </div>
+                        <div class="wind"></div>
+                    </div>
+                    <div class="hour iv">
+                        <div class="time"></div>
+                        <div class="icon" style="background-image: url(images/icons/blank.apng); background-size: 100%">
+                        </div>
+                        <div class="cond"></div>
+                        <div class="bar" style="height: 0px;">
+                            <div class="temp" style="display: none;"></div>
+                        </div>
+                        <div class="wind"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bulletin" style="display: none;">
+                <div class="header">Weather Bulletin</div>
+                <div class="box"></div>
+                <div class="noaalogo"></div>
+                <div class="boxheader">THE NATIONAL WEATHER SERVICE</div>
+                <div class="alerts">
+                    <span>Winter Weather Advisory until MON 1:00 AM EST</span>
+                    <br>
+                    <span>Winter Weather Advisory until MON 1:00 AM EST</span>
+                </div>
+            </div>
+            <div class="map" style="display: none;">
+                <div class="header" style="display: none;">Tonight's Forecast</div>
+                <div class="box"></div>
+                <div class="map-regional" style>
+                    <img class="merc" src="images/maps/regional_map.png">
+                    <img class="borders" src="images/maps/states_modified.svg">
+                    <img class="coastlines" src="images/maps/coastlines_modified.svg">
+                </div>
+                <div class="map-cities" style>
+                    <div class="city i" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;">
+                        </div>
+                    </div>
+                    <div class="city ii" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng);background-size: 100% 100%;">
+                        </div>
+                    </div>
+                    <div class="city iii" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;">
+                        </div>
+                    </div>
+                    <div class="city iv" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;">
+                        </div>
+                    </div>
+                    <div class="city v" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;">
+                        </div>
+                    </div>
+                    <div class="city vi" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;">
+                        </div>
+                    </div>
+                    <div class="city vii" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;">
+                        </div>
+                    </div>
+                    <div class="city viii" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;">
+                        </div>
+                    </div>
+                    <div class="city ix" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;">
+                        </div>
+                    </div>
+                    <div class="city x" style="display: none;">
+                        <div class="city-name"></div>
+                        <div class="temp">88</div>
+                        <div class="icon"
+                            style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="traffic-report">
+
+            </div>
+        </div>
+        <div class="ldl">
+            <div class="template ad" style="background-image: url(images/LDL.png);"></div>
+            <div class="template obs" style="background-image: url(images/LDL2.png); display: none;"></div>
+            <div class="template alert" style="display: none;"></div>
+            <div class="alertinfo" style="display: none;">
+                <div class="name"></div>
+                <div class="alertcrawl"></div>
+            </div>
+            <div class="logo"></div>
+            <div class="weathercomlogo"></div>
+            <div class="temp" style="display: none;"></div>
+            <div class="icon" style="background-image: url(images/icons/blank.apng); display: none;"></div>
+            <div class="time"></div>
+            <div class="crawl"></div>
+            <div class="observations">
+                <div class="currently">CURRENTLY</div>
+                <div class="city-name"></div>
+                <div class="info-header"></div>
+                <div class="info"></div>
+            </div>
+        </div>
+    </div>
+    <div id="settings-menu" class="container">
+        <img class="bg" src="images/domestic.png">
+        <div id="basic">
+            <div class="box"></div>
+            <div class="boxheader changecolor" style="color: #171717;">INTELLISTAR SIMULATOR</div>
+            <div class="version changecolor" style="color: #171717;">v1.0</div>
+            <div class="location changecolor" style="color: #171717;">
+                <div class="loctext changecolor">Location Name:</div>
+                <input type="text" class="input" id="locsearchlookup" autocomplete="off"
+                    placeholder="Search for location here...">
+                <button id="locsearch" title="Search" onclick="locationSearch('main', 'locsearch')"><img
+                        src="images/settings/search.png" style="width: 28px; top: 50%;"></button>
+                <button id="extralocbutton" title="Advanced Location Settings" onclick="changeSlide('basic', 'morelocation', function(){
+                        $('.loccontainer .mainloc')
+                            .text('Main Location: ' + locationConfig.mainCity.displayname + (locationConfig.mainCity.state != null ? ', ' + locationConfig.mainCity.state : (locationConfig.mainCity.stateFull != null ? ', ' + locationConfig.mainCity.stateFull : '')));
+                        $('.loccontainer .mainextraloc').text('Extra Name: ' + locationConfig.mainCity.extraname);
+                        allExtraCities()
+                    })">
+                    <div>...</div>
+                </button>
+                <div class="locsearchtext" style="color: green; display: none;">Location updated!</div>
+            </div>
+            <div class="flavor changecolor" style="color: #171717;">
+                <div class="flavortext changecolor">Flavor:</div>
+                <button id="flavor60" class="flavorbutton" onclick="flavorChanger('60')">
+                    <div>60</div>
+                </button>
+                <button id="flavor90" class="flavorbutton" onclick="flavorChanger('90')">
+                    <div>90</div>
+                </button>
+                <button id="flavor120" class="flavorbutton" onclick="flavorChanger('120')">
+                    <div>120</div>
+                </button>
+                <button id="flavormore" class="flavorbutton"
+                    onclick="changeSlide('basic', 'moreflavor', function(){setTimeout(() =>{flavorChanger('')},500)})">
+                    <div>...</div>
+                </button>
+            </div>
+            <div class="versions changecolor" style="color: #171717;">
+                <div class="versionstext changecolor">Version: 2008</div>
+                <button id="versions2007" class="versionsbutton" onclick="versionsChanger(2007)">
+                    <div>2007</div>
+                </button>
+                <button id="versions2008" class="versionsbutton" onclick="versionsChanger(2008)">
+                    <div>2008</div>
+                </button>
+            </div>
+            <div class="songs changecolor" style="color: #171717;">
+                <div class="songstext changecolor">Song:</div>
+                <select id="songinput">
+                    <option value="N"> </option>
+                    <option value="1">Memories Of The Past</option>
+                    <option value="2">Good Ole Days</option>
+                    <option value="3">Winter Tundra</option>
+                    <option value="4">Reflections In Time</option>
+                    <option value="5">Kool Kats</option>
+                    <option value="6">Rainy Days</option>
+                    <option value="7">That Latin Beat</option>
+                    <option value="8">Going Home</option>
+                    <option value="9">Midnight Cruise</option>
+                    <option value="10">Do You Believe</option>
+                    <option value="11">Jamaican Jam</option>
+                    <option value="12">Good Times</option>
+                    <option value="C">Custom</option>
+                </select>
+                <input id="songuploadinput" type="file" name="song" accept="audio/*">
+                <button id="uploadsongbutton"><img src="images/settings/upload.png"
+                        style="width: 28px; top: 50%;"></button>
+                <div class="songoffsettext changecolor">Offset:</div>
+                <input id="songoffsetinput" type="number" value="0">
+            </div>
+            <div class="enablevl changecolor" style="color: #171717;">
+                <div class="enablevltext">Enable VocalLocal (BETA):</div>
+                <input type="checkbox" id="enablevlcb">
+            </div>
+            <button id="startbutton" onclick="startProgram()">Start</button>
+            <h3 id="promo" class="changecolor" style="color: #171717;">Created by</h3>
+            <h3 id="promoii" class="changecolor" style="color: #171717;">, brought to you by </h3>
+            <div class="jwx"><a href="https://www.youtube.com/@jensonwx" target="_blank" title="JensonWX"></a></div>
+            <div class="mistpromo"><a href="https://mistwx.com/" target="_blank" title="Mist Weather Media"></a></div>
+        </div>
+        <div id="morelocation" class="changecolor" style="color: #171717;display: none;">
+            <div class="box" style></div>
+            <div class="boxheader changecolor" style="color: #171717;">ADVANCED LOCATION SETTINGS</div>
+            <div class="loccontainer changecolor" style="color: #171717;">
+                <div class="mainloc">Main Location: </div>
+                <input type="text" class="input" id="advlocsearchlookup" autocomplete="off"
+                    placeholder="Search for location here...">
+                <button id="advlocsearch" title="Search" onclick="locationSearch('main', 'advlocsearch')"><img
+                        src="images/settings/search.png" style="width: 28px; top: 50%;"></button>
+                <div class="mainextraloc">Extra Name: </div>
+                <input type="text" class="input" id="extranameinput" autocomplete="off"
+                    placeholder="Extra name for forecast here...">
+                <button id="extranameconfirm" title="Search" onclick="saveExtraName()"><img
+                        src="images/settings/confirm.png" style="width: 28px; top: 50%;"></button>
+            </div>
+            <div class="extracities changecolor" style="color: #171717;">
+                <div class="extracitiesheader">Local Observations:</div>
+                <div class="extracity i">
+                    <div class="extrcitydisplayname"></div>
+                    <input type="text" class="input extralookups" id="extralookup0" autocomplete="off"
+                        placeholder="Search for location here...">
+                    <button class="extrasearch i" onclick="createNewExtraCity(0)"><img src="images/settings/search.png"
+                            style="width: 24px; top: 50%;"></button>
+                </div>
+                <div class="extracity ii">
+                    <div class="extrcitydisplayname"></div>
+                    <input type="text" class="input extralookups" id="extralookup1" autocomplete="off"
+                        placeholder="Search for location here...">
+                    <button class="extrasearch ii" onclick="createNewExtraCity(1)"><img src="images/settings/search.png"
+                            style="width: 24px; top: 50%;"></button>
+                </div>
+                <div class="extracity iii">
+                    <div class="extrcitydisplayname"></div>
+                    <input type="text" class="input extralookups" id="extralookup2" autocomplete="off"
+                        placeholder="Search for location here...">
+                    <button class="extrasearch iii" onclick="createNewExtraCity(2)"><img
+                            src="images/settings/search.png" style="width: 24px; top: 50%;"></button>
+                </div>
+                <div class="extracity iv">
+                    <div class="extrcitydisplayname"></div>
+                    <input type="text" class="input extralookups" id="extralookup3" autocomplete="off"
+                        placeholder="Search for location here...">
+                    <button class="extrasearch iv" onclick="createNewExtraCity(3)"><img src="images/settings/search.png"
+                            style="width: 24px; top: 50%;"></button>
+                </div>
+                <div class="extracity v">
+                    <div class="extrcitydisplayname"></div>
+                    <input type="text" class="input extralookups" id="extralookup4" autocomplete="off"
+                        placeholder="Search for location here...">
+                    <button class="extrasearch v" onclick="createNewExtraCity(4)"><img src="images/settings/search.png"
+                            style="width: 24px; top: 50%;"></button>
+                </div>
+                <div class="extracity vi">
+                    <div class="extrcitydisplayname"></div>
+                    <input type="text" class="input extralookups" id="extralookup5" autocomplete="off"
+                        placeholder="Search for location here...">
+                    <button class="extrasearch vi" onclick="createNewExtraCity(5)"><img src="images/settings/search.png"
+                            style="width: 24px; top: 50%;"></button>
+                </div>
+                <div class="extracity vii">
+                    <div class="extrcitydisplayname"></div>
+                    <input type="text" class="input extralookups" id="extralookup6" autocomplete="off"
+                        placeholder="Search for location here...">
+                    <button class="extrasearch vii" onclick="createNewExtraCity(6)"><img
+                            src="images/settings/search.png" style="width: 24px; top: 50%;"></button>
+                </div>
+                <div class="extracity viii">
+                    <div class="extrcitydisplayname"></div>
+                    <input type="text" class="input extralookups" id="extralookup7" autocomplete="off"
+                        placeholder="Search for location here...">
+                    <button class="extrasearch viii" onclick="createNewExtraCity(7)"><img
+                            src="images/settings/search.png" style="width: 24px; top: 50%;"></button>
+                </div>
+                <div class="extracitytext advlocsearchtext" style="display: none;">ERROR: Location 1's search failed.
+                </div>
+            </div>
+            <div class="extraadvbutgroup">
+                <button id="backbutton" onclick="changeSlide('morelocation', 'basic')">
+                    <div>Back</div>
+                </button>
+                <button id="savebutton" class="extraadvbutton" onclick="saveLocationSettings(true)">
+                    <div>Save</div>
+                </button>
+                <button id="cookiessave" class="extraadvbutton" onclick="saveLocationCookies()">
+                    <div>Save to Cookies</div>
+                </button>
+                <button id="downloadconfig" class="extraadvbutton" onclick="downloadConfig()">
+                    <div>Download Config</div>
+                </button>
+                <button id="cookiesload" class="extraadvbutton" onclick="loadLocationCookies()"
+                    style="pointer-events: none; opacity: 0.5;"
+                    title="Currently being worked on. Sorry for the inconvenience!">
+                    <div>Load from Cookies</div>
+                </button>
+                <button id="loadconfig" class="extraadvbutton" onclick="
+                    document.getElementById('locloadconfiginput').click();
+                    jsonFuncs();" style="pointer-events: none; opacity: 0.5;"
+                    title="Currently being worked on. Sorry for the inconvenience!">
+                    <div>Load from Config</div>
+                </button>
+                <input id="locloadconfiginput" type="file" accept="application/json"
+                    style="opacity: 0; cursor: pointer;">
+            </div>
+            <div class="loadoptionswarning">Loading options will be added in a future update!</div>
+        </div>
+        <div id="moreflavor" class="changecolor" style="color: #171717; display: none;">
+            <div class="box" style="display: none;"></div>
+            <div class="boxheader changecolor" style="color: #171717;">ADVANCED FLAVOR SETTINGS</div>
+            <div class="moreflavortext">Advanced flavor settings will be released at a later date!</div>
+            <button id="backbutton" onclick="changeSlide('moreflavor', 'basic')">
+                <div>Back</div>
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

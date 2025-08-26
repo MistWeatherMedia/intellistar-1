@@ -1,0 +1,240 @@
+#main, 
+#background {
+    width: 1440px;
+    height: 1080px;
+}
+
+
+.ldl .template {
+    position: absolute;
+    width: 1440px;
+    height: 261px;
+    bottom: 0;
+    background-size: cover;
+}
+.ldl .logo {
+    position: absolute;
+    width: 213px;
+    height: 144px;
+    background-size: cover;
+    bottom: 125px;
+    right: 130px;
+    transform: scaleX(0.889);
+}
+.current-conditions .box {
+    width: 1397.25px;
+    height: 681.75px;
+    left: 1.5%;
+    top: 16%;
+    transform: scaleX(89%);
+}
+.eight-cities .box {
+    width: 1397.25px;
+    height: 726.75px;
+    left: 1.5%;
+    top: 16%;
+    transform: scaleX(89%);
+}
+.header {
+    position: absolute;
+    font-size: 72px;
+    margin-left: 120px;
+    margin-top: 78px;
+}
+
+.current-conditions .city-name {
+    position: absolute;
+    font-size: 48px;
+    margin-top: 185px;
+    margin-left: 124px;
+    color: #171717;
+}
+.current-conditions .cond {
+    position: absolute;
+    color: #171717;
+    font-size: 48px;
+    margin-left: 176px;
+    margin-top: 530px;
+    width: 280px;
+    text-align: center;
+    line-height: 64px;
+}
+.current-conditions .temp {
+    position: absolute;
+    color: #171717;
+    font-family: "Interstate Black Cn";
+    font-size: 132px;
+    bottom: 225px;
+    margin-left: 152px;
+    text-align: center;
+    width: 333px;
+}
+.current-conditions .icon {
+    width: 256px;
+    height: 256px;
+    position: absolute;
+    margin-top: 270px;
+    margin-left: 200px;
+}
+.current-conditions .labels {
+    position: absolute;
+    font-family: "Interstate";
+    text-align: right;
+    color: #171717;
+    font-size: 42px;
+    right: 593px;
+    margin-top: 247px;
+    line-height: 90px;
+    letter-spacing: 2.5px;
+}
+.current-conditions .right-pane {
+    margin-left: 905px;
+}
+.current-conditions .humidity, .dewpoint, .visibility,
+.current-conditions .wind, .feelslike {
+    position: absolute;
+    font-size: 60px;
+    color: #171717;
+}
+.current-conditions .humidity {
+    margin-top: 253px;
+}
+.current-conditions .dewpoint {
+    margin-top: 344px;
+}
+.current-conditions .feelslike {
+    margin-top: 793px;
+    margin-left: -2px;
+}
+.current-conditions .wind {
+    margin-top: 613px;
+    margin-left: -3px;
+}
+.current-conditions .gusts {
+    position: absolute;
+    margin-top: 703px;
+    margin-left: -3px;
+    font-size: 60px;
+    letter-spacing: 3px;
+    display: flex;
+}
+.gusts .none {
+    position: absolute;
+    color: #171717;
+    letter-spacing: 3px;
+}
+.gusts .data {
+    color: #171717;
+}
+.gusts .miles {
+    font-family: "Interstate";
+    color: #171717;
+    margin-top: 27px;
+    position: absolute;
+    font-size: 30px;
+    margin-left: 100px;
+    transform: scaleX(1.125);
+}
+.current-conditions .pressure {
+    position: absolute;
+    font-size: 60px;
+    margin-top: 434px;
+    display: flex;
+}
+.pressure .data {
+    color: #171717;
+    letter-spacing: 2px;
+}
+.pressure .inches {
+    font-family: "Interstate";
+    color: #171717;
+    margin-top: 25px;
+    display: block;
+    padding-left: 14px;
+    font-size: 33px;
+    transform: scaleY(0.91);
+    letter-spacing: 1.5px;
+}
+.pressure .trend {
+    color: #171717;
+    padding-left: 17px;
+}
+.current-conditions .visibility {
+    position: absolute;
+    font-size: 60px;
+    margin-top: 523px;
+    display: flex;
+}
+.visibility .data {
+    color: #171717;
+    letter-spacing: 3px;
+}
+.visibility .miles {
+    font-family: "Interstate";
+    color: #171717;
+    margin-top: 25px;
+    display: block;
+    padding-left: 9px;
+    font-size: 33px;
+    transform: scaleY(0.91);
+    letter-spacing: 1.5px;
+}
+
+
+/* .eight-cities .top {
+    position: absolute;
+    color: #171717;
+    display: flex;
+    right: 189px;
+    font-size: 36px;
+    margin-top: 191px;
+    transform: scaleY(0.91);
+}
+.eight-cities .top .temp {
+    color: inherit;
+    padding-right: 366px;
+}
+.eight-cities .top .wind {
+    color: inherit;
+}
+.eight-cities .information {
+    margin-top: 245px;
+    position: absolute;
+}
+.eight-cities .information .extra-loc {
+    display: flex;
+    width: 1370px;
+    height: 157px;
+    margin-left: 125px;
+}
+.extra-loc .name {
+    color: #171717;
+    font-size: 64px;
+    margin-left: 12px;
+    margin-top: 34px;
+    transform: scaleY(0.91);
+    letter-spacing: 2.5px;
+    width: 580px;
+    overflow: hidden;
+}
+.extra-loc .temp {
+    color: #171717;
+    font-family: "Interstate Black Cn";
+    transform: scaleY(0.91);
+    font-size: 80px;
+    margin-left: 29px;
+    margin-top: 20px;
+}
+.extra-loc .icon {
+    margin-top: 13px;
+    width: 128px;
+    height: 128px;
+    margin-left: 144px;
+}
+.extra-loc .wind {
+    color: #171717;
+    transform: scaleY(0.91);
+    font-size: 64px;
+    margin-top: 34px;
+    margin-left: 112px;
+} */
