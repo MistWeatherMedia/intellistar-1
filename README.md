@@ -1,4 +1,6 @@
-## **IntelliStar Simulator** is a simulated recreation of "Local On The 8s" by The Weather Channel in HTML/CSS/JS, as seen from 2007 to 2008, by ***mist weather media***
+# IntelliStar Simulator 
+
+**IntelliStar Simulator** is a simulated recreation of "Local On The 8s" by The Weather Channel in HTML/CSS/JS, as seen from 2007 to 2008, by ***mist weather media***
 
 Online version: [i1.weatherstar.dev](https://i1.weatherstar.dev)
 
