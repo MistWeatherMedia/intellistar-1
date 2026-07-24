@@ -5,24 +5,26 @@ var traf_key = 'YOUR_TRAFFIC_KEY';
 var appearanceSettings = {
     marqueeAd: ["network"],
     localWeatherID: "XXXXX", //Keep it at XXXXX to generate a random local weather ID. Otherwise, put a 5 digit number.
-    iconSet: "2007", //I highly recommend you do not change this value unless you are more experienced. If you do, the sim will look for a folder after what you set this too.
+    iconSet: "2007", //Choices are 2007 or 2010. 2010 icons appear in 2010-present versions, 2007 is between 2006-2010.
     ldlType: 'both', //what you want to see on ldl. 'observations' = only observations / 'both' = both / if anything else is put here, the sim will default to only observations
     startupTime: 4000, //How long you want to wait for it to start up.
-    graphicsPackage: 2008, //the package for graphics. 2007 will have blue text, while 2008 will have black text.
-    version: "1.1"
+    graphicsPackage: 2008, //the package for graphics. 2007 will have blue text, while 2008 will have black text. Everything 2009 and above includes blue LDL. 2010 changes the icons.
+    version: "1.2"
 }
 
 var slideSettings = {
     flavor: '120',
     bulletin: false,
     precip: false,
+    auto: true,
     order: [
         {function:"currentConditions",slideDelay:8000},
-        {function:"nearbyCities",slides:2,slideDelay:6000},
         {function:"mapCurrent",slideDelay:8000},
         {function:"radarDoppler",slideDelay:8000},
+        {function:"localDoppler",slideDelay:12000},
         {function:"almanac",slideDelay:8000},
         {function:"airQuality",slideDelay:8000},
+        {function:"outdoorActivity",slideDelay:8000},
         {function:"daypartForecast",slideDelay:8000},
         {function:"mapForecast",slides:2,slideDelay:7000},
         {function:"localForecast",slides:4,slideDelay:7500},
@@ -31,7 +33,7 @@ var slideSettings = {
 }
 
 var audioSettings = {
-    enableMusic: true, //I understand if you want to play music from a different tab, but that's the only reason it should be false
+    enableMusic: true, //Self-explanatory. Default is true.
     shuffle: true, //Self-explanatory. Default is true.
     randomStart: true, //Also should be self-explanatory. Default is true.
     narrations: true, //Also should be self-explanatory. Default is true.
@@ -134,7 +136,6 @@ var locationSettings = {/*This is what you can edit, anything under the lcationS
     },
     radarCities: {
         local: [
-            //similar to weatherscan's, just a temp thing to solve the cities issue right now (no city name/label)
             {locationName:"",dotTopPos:"",dotLeftPos:"",nameTopMargin:"",nameLeftMargin:""}
         ],
         regional: [

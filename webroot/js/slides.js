@@ -23,18 +23,7 @@ var slideFlavor = {
     flavor: '',
     bulletin: false,
     precip: false,
-    order: [
-        { function: "currentConditions", slideDelay: 8000 },
-        { function: "nearbyCities", slides: 2, slideDelay: 6000 },
-        { function: "mapCurrent", slideDelay: 8000 },
-        { function: "radarDoppler", slideDelay: 8000 },
-        { function: "almanac", slideDelay: 8000 },
-        { function: "airQuality", slideDelay: 8000 },
-        { function: "daypartForecast", slideDelay: 8000 },
-        { function: "mapForecast", slides: 2, slideDelay: 7000 },
-        { function: "localForecast", slides: 4, slideDelay: 7500 },
-        { function: "weekAhead", slideDelay: 8000 },
-    ]
+    order: slideSettings.order
 }
 
 var slideLength;
@@ -55,42 +44,59 @@ function slideCallBack() {
 };
 var slidePrograms = {
     currentConditions() {
-        audioPlayer.vocallocal.cc = vocallocalCC()
-        $(".current-conditions").fadeIn(0);
-        $(".current-conditions .city-name").text(locationConfig.mainCity.displayname.toUpperCase());
-        $(".current-conditions .cond").text(weatherInfo.currentConditions.cond);
-        $(".current-conditions .temp").text(weatherInfo.currentConditions.temp);
-        $(".current-conditions .humidity").text(weatherInfo.currentConditions.humidity);
-        $(".current-conditions .dewpoint").text(weatherInfo.currentConditions.dewpoint + "°");
-        $(".current-conditions .pressure .data").text(weatherInfo.currentConditions.pressure.val);
-        $(".current-conditions .visibility .data").text(weatherInfo.currentConditions.visibility);
-        $(".current-conditions .wind").text(weatherInfo.currentConditions.wind);
-        if (weatherInfo.currentConditions.gusts != "None") {
-            $(".current-conditions .gusts .data").text(weatherInfo.currentConditions.gusts);
-            $(".current-conditions .gusts .miles").fadeIn(0);
-        } else {
-            $(".current-conditions .gusts .none").fadeIn(0);
-            $(".current-conditions .gusts .miles").fadeOut(0);
-        }
-        if (weatherInfo.currentConditions.feelslike.type != null) {
-            $('.current-conditions .labels').append(`${weatherInfo.currentConditions.feelslike.type.toUpperCase()}`);
-            $('.current-conditions .feelslike').fadeIn(0);
-            $('.current-conditions .feelslike').text(weatherInfo.currentConditions.feelslike.val + "°");
-        }
-        getIcon($('.current-conditions .icon'), weatherInfo.currentConditions.icon, "current", "large");
+        try {
+            audioPlayer.vocallocal.cc = vocallocalCC()
+            $(".current-conditions").fadeIn(0);
+            $(".current-conditions .city-name").text(locationConfig.mainCity.displayname.toUpperCase());
+            $(".current-conditions .cond").text(weatherInfo.currentConditions.cond);
+            $(".current-conditions .temp").text(weatherInfo.currentConditions.temp);
+            $(".current-conditions .humidity").text(weatherInfo.currentConditions.humidity);
+            $(".current-conditions .dewpoint").text(weatherInfo.currentConditions.dewpoint + "°");
+            $(".current-conditions .pressure .data").text(weatherInfo.currentConditions.pressure.val);
+            $(".current-conditions .visibility .data").text(weatherInfo.currentConditions.visibility);
+            $(".current-conditions .wind").text(weatherInfo.currentConditions.wind);
+            if (weatherInfo.currentConditions.gusts != "None") {
+                $(".current-conditions .gusts .data").text(weatherInfo.currentConditions.gusts);
+                $(".current-conditions .gusts .miles").fadeIn(0);
+            } else {
+                $(".current-conditions .gusts .none").fadeIn(0);
+                $(".current-conditions .gusts .miles").fadeOut(0);
+            }
+            if (weatherInfo.currentConditions.feelslike.type != null) {
+                $('.current-conditions .labels').append(`${weatherInfo.currentConditions.feelslike.type.toUpperCase()}`);
+                $('.current-conditions .feelslike').fadeIn(0);
+                $('.current-conditions .feelslike').text(weatherInfo.currentConditions.feelslike.val + "°");
+            }
+            getIcon($('.current-conditions .icon'), weatherInfo.currentConditions.icon, "current", "large");
 
-        $('.current-conditions .box').fadeIn(167, 'linear');
-        $('.current-conditions .header').fadeIn(333, 'linear');
-        audioPlayer.playCC(true);
+            $('.current-conditions .box').fadeIn(167, 'linear');
+            $('.current-conditions .header').fadeIn(333, 'linear');
+            audioPlayer.playCC(true);
 
-        setTimeout(() => {
-            $('.current-conditions .box').fadeOut(167, 'linear');
-            $('.current-conditions .header').fadeOut(333, 'linear');
             setTimeout(() => {
-                $('.current-conditions').fadeOut(0);
-                slideCallBack();
-            }, 333);
-        }, slideLength - 333);
+                $('.current-conditions .box').fadeOut(167, 'linear');
+                $('.current-conditions .header').fadeOut(333, 'linear');
+                setTimeout(() => {
+                    $('.current-conditions').fadeOut(0);
+                    slideCallBack();
+                }, 333);
+            }, slideLength - 333);
+        } catch (error) {
+            $(".current-conditions").fadeIn(0);
+            $(".current-conditions .city-name").text(locationConfig.mainCity.displayname.toUpperCase());
+            $('.current-conditions .box').fadeIn(167, 'linear');
+            $('.current-conditions .header').fadeIn(333, 'linear');
+            $('.current-conditions .right-pane').fadeOut(0);
+
+            setTimeout(() => {
+                $('.current-conditions .box').fadeOut(167, 'linear');
+                $('.current-conditions .header').fadeOut(333, 'linear');
+                setTimeout(() => {
+                    $('.current-conditions').fadeOut(0);
+                    slideCallBack();
+                }, 333);
+            }, slideLength - 333);
+        }
     },
     nearbyCities() {
         try {
@@ -377,6 +383,8 @@ var slidePrograms = {
         }, slideLength - 167);
     },
     bulletin() {
+        console.log(vocallocalBulletin());
+        audioPlayer.vocallocal.bl = vocallocalBulletin();
         var text = "";
         for (var i = 0; i < (weatherInfo.bulletin.alerts.length > 2 ? 2 : weatherInfo.bulletin.alerts.length); i++) {
             text = text + `<span>${weatherInfo.bulletin.alerts[i].desc}</span><br>`
@@ -385,6 +393,7 @@ var slidePrograms = {
         $('.bulletin .alerts').empty();
         $('.bulletin .alerts').append(text);
 
+        audioPlayer.playBulletin();
         setTimeout(() => {
             $('.bulletin .header').fadeOut(167, 'linear');
             $('.bulletin .alerts').fadeOut(167, 'linear');
@@ -464,13 +473,41 @@ var slidePrograms = {
                 }
             }
         }, slideLength);
+    },
+    outdoorActivity(){
+        $(".outdoor-activity").fadeIn(0);
+        $(".outdoor-activity .header").fadeIn(133, 'linear');
+        $(".outdoor-activity .box").fadeIn(0);
+        $(".outdoor-activity .outdoor-bg").css({'background-image': `url(images/outdoorActivity${weatherInfo.outdoorActivity.bg}.png)`, 'background-size': '100% 100%'});
+        $(".outdoor-activity .outdoor-bg").fadeIn(300, 'linear');
+
+        $(".outdoor-activity .time").text(weatherInfo.outdoorActivity.time);
+        $(".outdoor-activity .temp").text(weatherInfo.outdoorActivity.temp);
+        $(".outdoor-activity .cond").text(weatherInfo.outdoorActivity.cond);
+        $(".outdoor-activity .wind .val").text(weatherInfo.outdoorActivity.wind);
+        if(weatherInfo.outdoorActivity.feelslike.type == undefined){
+            $(".outdoor-activity .feelslike").fadeOut(0);
+        }else{
+            $(".outdoor-activity .feelslike .heading").text(weatherInfo.outdoorActivity.feelslike.type.toUpperCase());
+            $(".outdoor-activity .feelslike .val").text(weatherInfo.outdoorActivity.feelslike.val + "°");
+        }
+        getIcon($(".outdoor-activity .icon"), weatherInfo.outdoorActivity.icon, "forecast", "large");
+
+        setTimeout(() => {
+            $(".outdoor-activity .outdoor-bg").fadeOut(300, 'linear');
+            setTimeout(() => {
+                $(".outdoor-activity .header").fadeOut(133, 'linear');
+            }, 167);
+            setTimeout(() => {
+                $(".outdoor-activity").fadeOut(0);
+                slideCallBack();
+            }, 300);
+        }, slideLength - 300);
     }
 } //end of slidePrograms
 function showSlides() {
     slideLength = slideFlavor.order[idx].slideDelay;
 
-    if (idx >= slideFlavor.order.length) {
-    }
     if (nidx >= slideFlavor.order.length) {
         nidx = 0;
         slideCallBack = function () {
@@ -488,6 +525,4 @@ function showSlides() {
     nextProgram = slidePrograms[slideFlavor.order[nidx].function]
     nextDiv = slideDivs[slideFlavor.order[nidx].function]
     currentProgram();
-
-
-}//END OF showSlides() FUNCTION
+}

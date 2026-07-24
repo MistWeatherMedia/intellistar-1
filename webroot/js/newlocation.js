@@ -102,10 +102,17 @@ async function getMainCity(query) {
         })
     }
 }
+let nearbyRound = 0;
 //bit of a rewrite inspired from BFS nearby loc pull
 function getNearbyCities() {
     let locPull;
-    newCities = []
+    if(nearbyRound == 0){ newCities = [] }
+    if(nearbyRound >= 10){
+        locationConfig.eightCities.cities = newCities.sort((a, b) => a.displayname.localeCompare(b.displayname));
+        console.warn("Nearby pull was cut off after 10 turns, location list may not be full.");
+        nearbyRound = 0;
+        return;
+    }
     if (locationSettings.eightCities.autoFind == false) {
         for (let i = 0; i < locationSettings.eightCities.cities.length; i++) {
             setTimeout(() => {
@@ -126,10 +133,11 @@ function getNearbyCities() {
             if(newCities.length >= 8){
                 locationConfig.eightCities.cities = newCities.sort((a, b) => a.displayname.localeCompare(b.displayname));
             } else {
+                nearbyRound++;
                 locationQueue.push(newCities[newCities.length - 1]);
                 getNearbyCities()
             }
-        }, 1000);
+        }, 500);
     }
 }
 function createNewCity(type, val, i, manual) {
@@ -146,7 +154,7 @@ function createNewCity(type, val, i, manual) {
             newCities.push(cityObj);
         }else{
             for(let j = 0; j < newCities.length; j++){
-                if(cityObj.displayname == locationConfig.mainCity.displayname) return;
+                //if(cityObj.displayname == locationConfig.mainCity.displayname) return;
                 if(cityObj.displayname == newCities[j].displayname) return;
                 if(cityObj.displayname == newCities[j].stateFull) return;
                 if(newCities.length >= 8) return;

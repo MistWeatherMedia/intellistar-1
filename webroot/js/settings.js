@@ -1,7 +1,14 @@
 var inSettings = true;
-document.addEventListener('DOMContentLoaded', () =>{
+document.addEventListener('DOMContentLoaded', async () =>{
     $("#settings-menu .version").text(`v${appearanceSettings.version}`);
     $("#settings-menu .flavortext").text("Flavor: " + slideSettings.flavor + "s");
+    $("#settings-menu .versionstext").text("Version: " + appearanceSettings.graphicsPackage);
+    if(appearanceSettings.graphicsPackage == 2010 || appearanceSettings.graphicsPackage == "2010"){
+        appearanceSettings.iconSet = "2010";
+    }
+    versionsChanger(appearanceSettings.graphicsPackage);
+    await preloadFonts();
+    await preloadImages();
     $.getJSON("https://mistwx.com/crawlnetwork.json", function(data){
         if(appearanceSettings.marqueeAd[0] == "network"){
             appearanceSettings.marqueeAd = data.crawls.intellistar;
@@ -103,14 +110,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         .addEventListener("click", () => {
             mapSettings();
         })
-    
-    // createMaps();
-    // initializeRadar(regradar).then(() =>{
-    //     startRadar(regradar).then(() =>{
-    //         setTimeout(() =>{stopRadar(regradar, regtimestamps)},10000);
-    //     });
-    // });
-    // initializeRadar(locradar);
+
 })
 
 /**
@@ -164,10 +164,8 @@ async function startProgram() {
     $("#map-interactive-settings").css('pointer-events', 'none')
     $("#settings-menu").fadeOut(0);
     $("#blackscreen").fadeIn(0);
+    await createMaps();
     setTimeout(() => {
-        createMaps();
-        initializeRadar(regradar);
-        initializeRadar(locradar);
         audioPlayer.startPlaying(audioPlayer.playlist, true);
     }, appearanceSettings.startupTime - 500);
     setTimeout(() => {
@@ -216,6 +214,7 @@ function flavorChanger(flv){
  * @returns 
  */
 function flavorPicker(time, modes) {
+    if(slideSettings.auto == false){return slideSettings;}
     if(time == '') time = '120';
     if(modes.bulletin == undefined) modes.bulletin = false;
     if(modes.precip == undefined) modes.precip = false;
@@ -226,6 +225,7 @@ function flavorPicker(time, modes) {
 }
 
 function locationSearch(id){
+    endAlertCrawl();
     clearInterval(locNameInterval);
     clearInterval(dataGrabInterval);
     mainquery = document.getElementById(id).value;
@@ -237,21 +237,49 @@ function locationSearch(id){
 }
 
 function versionsChanger(version){
+    appearanceSettings.graphicsPackage = version;
     let versionHex;
     $(".versionstext").text("Version: " + version);
     switch(version){
         case 2007:
+            appearanceSettings.iconSet = '2007';
             versionHex = "#304976";
             $('.changecolor').css('color', versionHex);
-        break;
+            break;
         case 2008:
+            appearanceSettings.iconSet = '2007';
             versionHex = "#171717";
             $('.changecolor').css('color', versionHex);
+            break;
+        case 2009:
+            appearanceSettings.iconSet = '2007';
+            versionHex = "#171717";
+            $('.changecolor').css('color', versionHex);
+            break;
+        case 2010:
+            appearanceSettings.iconSet = '2010';
+            version = 2009;
+            versionHex = "#171717";
+            $('.changecolor').css('color', versionHex);
+            break;
+        default:
+            break;
     }
     $("#styles").append(`<link rel="stylesheet" href="css/intellistar-32-${version}.css">`)
     setTimeout(() => {
         $("#styles").children('link').first().remove();
     }, 10);
+}
+
+function ldlChanger(type){
+    appearanceSettings.ldlType = type;
+    if(type == 'observations'){
+        $("#ldlbuttonboth div").css('color', ''); 
+        $("#ldlbuttonobs div").css('color', 'red'); 
+    }else{
+        $("#ldlbuttonboth div").css('color', 'red'); 
+        $("#ldlbuttonobs div").css('color', ''); 
+    }
 }
 
 function saveLocationSettings(){
@@ -410,6 +438,19 @@ function loadLocationCookies(){
     }, 500);
 }
 
+function loadMapCityDropbox(){
+    $("#citydropvalue").html("<option value=\"N\"> </option>");
+    $(".map-cities .city").each((index) =>{
+        if(locationConfig.regionalMap.map.length > index){
+            $("#citydropvalue").append(`<option value=${index}>${locationConfig.regionalMap.map[index].name}</option>`)
+        }
+    }).promise().done(function(){
+        if(!(document.getElementById("citydropvalue").options.length >= 11)){
+            $("#citydropvalue").append(`<option value=add>Add a city...</option>`)
+        }
+    })
+}
+
 var inMapBefore = false;
 var currentMapIdx = '';
 var mapDivs = ["i","ii","iii","iv","v","vi","vii","viii","ix","x"]
@@ -441,15 +482,7 @@ function mapSettings(){
                 })
             }
         }
-        $(".map-cities .city").each((index) =>{
-            if(locationConfig.regionalMap.map.length > index){
-                $("#citydropvalue").append(`<option value=${index}>${locationConfig.regionalMap.map[index].name}</option>`)
-            }
-        }).promise().done(function(){
-            if(!(document.getElementById("citydropvalue").options.length >= 11)){
-                $("#citydropvalue").append(`<option value=add>Add a city...</option>`)
-            }
-        })
+        loadMapCityDropbox()
     });
     if(!inMapBefore){
         document.getElementById("mapleftvalue")
@@ -559,11 +592,12 @@ function mapSettings(){
                     }else{
                         document.querySelector('option[value="add"]').remove();
                     }
-                    $(".map-cities").append(`<div class="city ${mapDivs[locationConfig.regionalMap.map.length-1]} selected" style="left: 720px; top: 430px;"><div class="city-name">City Name</div><div class="temp">88</div><div class="icon" style="background-image: url(images/icons/2007/large/Ts.apng); background-size: 100% 100%;"></div></div>`)
+                    $(".map-cities").append(`<div class="city ${mapDivs[locationConfig.regionalMap.map.length-1]} selected" style="left: 720px; top: 430px;"><div class="city-name">City Name</div><div class="temp">88</div><div class="icon" style="background-image: url(images/icons/2007/large/Ts.webp); background-size: 100% 100%;"></div></div>`)
                     $(".city-properties").fadeIn(0);
                     $(".city-properties .city-name").text("City Name:");
                     document.getElementById("cityleftvalue").value = 720;
                     document.getElementById("citytopvalue").value = 430;
+                    loadMapCityDropbox();
                     return;
                 }
                 $(".map-cities .city." + mapDivs[currentMapIdx]).removeClass("selected");
@@ -687,14 +721,7 @@ async function removeMapCity(){
     document.getElementById("citydropvalue").remove(Number(currentMapIdx) + 1)
     $("#citydropvalue").html("<option value=\"N\"> </option>");
     $(".map-cities").children(`.${mapDivs[currentMapIdx]}`).remove();
-    for(let i = 0; i < $(".map-cities").children().length; i++){
-        $(".map-cities").children().eq(i).attr("class", "city");
-        $(".map-cities").children().eq(i).addClass(mapDivs[i]);
-        $("#citydropvalue").append(`<option value=${i}>${locationConfig.regionalMap.map[i].name}</option>`)
-    }
-    if(!(document.getElementById("citydropvalue").options.length >= 11)){
-        $("#citydropvalue").append(`<option value=add>Add a city...</option>`)
-    }
+    loadMapCityDropbox();
     //last thing
     await grabMapCityData();
 }
@@ -707,13 +734,7 @@ async function searchMapCity(){
         $(".city-properties .city-name").text(data.location.displayName[0] + ":");
         $(".map-cities .city." + mapDivs[currentMapIdx] + " .city-name").text(data.location.displayName[0]);
         $("#citydropvalue").html("<option value=\"N\"> </option>");
-        $(".map-cities .city").each((index) =>{
-            $("#citydropvalue").append(`<option value=${index}>${locationConfig.regionalMap.map[index].name}</option>`)
-        }).promise().done(function(){
-            if(!(document.getElementById("citydropvalue").options.length >= 11)){
-                $("#citydropvalue").append(`<option value=add>Add a city...</option>`)
-            }
-        })
+        loadMapCityDropbox()
     })
     await grabMapCityData();
 }

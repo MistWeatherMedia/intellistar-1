@@ -5,7 +5,8 @@ class AudioManager {
         this.isMobile = false
         this.vocallocal = {
             cc: [],
-            lf: [`/vocallocal/DAYPART_DEFAULT1.wav`]
+            lf: [`/vocallocal/DAYPART_DEFAULT1.wav`],
+            bl: []
         }
 
         $('body').append(this.$players)
@@ -34,6 +35,10 @@ class AudioManager {
 
     playRadar(){
         this.startPlaying([`/vocallocal/doppler/LRADAR_DEFAULT${Math.floor(Math.random()) + 1}.wav`], false)
+    }
+
+    playBulletin(){
+        this.startPlaying(this.vocallocal.bl, false)
     }
 
     playLF() {
@@ -131,12 +136,12 @@ class AudioManager {
             $preloader = tempAudio;
             $player.jPlayer('play', audioType == 'music' ? Math.abs(audioSettings.offset) : 0);
 
-            $(document).on('mousedown', () => {
-                if (!this.isMobile) {
-                    $player.jPlayer('play', audioType == 'music' ? Math.abs(audioSettings.offset) : 0);
-                    this.isMobile = true;
-                }
-            });
+            // $(document).one('mousedown', () => {
+            //     if (!this.isMobile) {
+            //         $player.jPlayer('play', audioType == 'music' ? Math.abs(audioSettings.offset) : 0);
+            //         this.isMobile = true;
+            //     }
+            // });
 
         };
 

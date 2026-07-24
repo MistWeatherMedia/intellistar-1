@@ -1,31 +1,36 @@
 var vocallocalPath = '/vocallocal/';
 function vocallocalCC(){
-    var narrationArr = [];
+    try {
+        var narrationArr = [];
 
-    var condPath = vocallocalPath + 'cond/';
-    var tempPath = vocallocalPath + 'temp/';
+        var condPath = vocallocalPath + 'cond/';
+        var tempPath = vocallocalPath + 'temp/';
 
-    //CC INTRO
-    narrationArr.push(vocallocalPath + `CC_INTRO${(Math.floor(Math.random() * 2) + 1)}.wav`);
+        //CC INTRO
+        narrationArr.push(vocallocalPath + `CC_INTRO${(Math.floor(Math.random() * 2) + 1)}.wav`);
 
-    //TEMP
-    var tempe = weatherInfo.currentConditions.temp.toString().replace('-','M');
-    var temper = tempPath + tempe + ".wav"
-    narrationArr.push(temper)
+        //TEMP
+        var tempe = weatherInfo.currentConditions.temp.toString().replace('-','M');
+        var temper = tempPath + tempe + ".wav"
+        narrationArr.push(temper)
 
-    //COND
-    var condi = codeToCurrent[weatherInfo.currentConditions.icon].narration;
-    if(condi == undefined){condi == weatherInfo.currentConditions.icon}
-    var condit = condPath + condi + '.wav'
-    narrationArr.push(condit)
+        //COND
+        var condi = codeToCurrent[weatherInfo.currentConditions.icon].narration;
+        if(condi == undefined){condi == weatherInfo.currentConditions.icon}
+        var condit = condPath + condi + '.wav'
+        narrationArr.push(condit)
 
-    //failsafe
-    if(temper === '/vocallocal/temp/.wav' || condit === '/vocallocal/cond/.wav'){
-        narrationArr = ['/vocallocal/narrations/Your_current_conditions.mp3'];
-        console.error('Could not find vocallocal files, reverted to normal')
+        //failsafe
+        if(temper === '/vocallocal/temp/.wav' || condit === '/vocallocal/cond/.wav'){
+            narrationArr = ['/vocallocal/narrations/Your_current_conditions.mp3'];
+            console.error('Could not find vocallocal files, reverted to normal')
+        }
+
+        return narrationArr;
+    } catch (error) {
+        console.error(error);
+        return [];
     }
-
-    return narrationArr;
 }
 
 function vocallocalLF(idx, durr){
@@ -114,5 +119,18 @@ function vocallocalLF(idx, durr){
     }
     if(pushPrecip == true){narrationArr.push(precipAudio)}
     //console.log([dayAudio, longformAudio, shortcastAudio, highlowAudio])
+    return narrationArr;
+}
+
+function vocallocalBulletin(){
+    var narrationArr = [];
+    //maybe later i'll add a second narration in
+    if(warningSettings[weatherInfo.bulletin.alerts[0].name].narration){
+        narrationArr.push(`vocallocal/bulletin/${warningSettings[weatherInfo.bulletin.alerts[0].name].narration}.wav`);
+        narrationArr.push(`vocallocal/bulletin/I.wav`)
+    }else{
+        narrationArr.push(`vocallocal/BULLETIN_DEFAULT.wav`);
+    }
+
     return narrationArr;
 }

@@ -1,0 +1,1472 @@
+#main, 
+#background,
+#settings-menu {
+    width: 1620px;
+    height: 1080px;
+}
+#settings-menu .bg {
+    width: 1620px;
+    height: 1080px;
+}
+.current-conditions .box {
+    width: 1397.25px;
+    height: 681.75px;
+    left: 7%;
+    top: 16%;
+}
+.eight-cities .box {
+    width: 1397.25px;
+    height: 726.75px;
+    left: 7%;
+    top: 16%;
+}
+.local-forecast .box {
+    width: 1397.25px;
+    height: 681.75px;
+    left: 7%;
+    top: 16%;
+}
+.week-ahead .box {
+    width: 1397.25px;
+    height: 681.75px;
+    left: 7%;
+    top: 16%;
+}
+.air-quality .box {
+    width: 1397.25px;
+    height: 681.75px;
+    left: 7%;
+    top: 16%;
+}
+.almanac .box {
+    width: 1397.25px;
+    height: 688.5px;
+    left: 7%;
+    top: 16%;
+}
+.daypart-forecast .box {
+    width: 1393.25px;
+    height: 688.5px;
+    left: 7%;
+    top: 16%;
+}
+.outdoor-activity .box {
+    width: 1028.25px;
+    height: 677.25px;
+    left: 6.7%;
+    top: 17%;
+}
+.map .box {
+    width: 1505.25px;
+    height: 105px;
+    left: 7.25%;
+    top: 5.75%;
+    z-index: 1;
+}
+.header {
+    position: absolute;
+    font-size: 72px;
+    margin-left: 144px;
+    margin-top: 78px;
+    transform: scaleX(1.1);
+}
+.bulletin {
+    width: 1620px;
+    height: 1080px;
+}
+.bulletin .box {
+    width: 1397.25px;
+    height: 726.75px;
+    left: 7%;
+    top: 16%;
+}
+
+@keyframes blueLDLInit {
+    from {
+        bottom: -135px;
+    }
+    to {
+        bottom: 0px;
+    }
+}
+@keyframes tempTabInit {
+    from {
+        right: 203px;
+    }
+    to {
+        right: 303px;
+    }
+}
+@keyframes timeTabInit {
+    from {
+        right: 260px;
+    }
+    to {
+        right: 460px;
+    }
+}
+@keyframes tabCapInit {
+    from {
+        left: 980px;
+    }
+    to {
+        left: 112px;
+    }
+}
+@keyframes topBarInit {
+    from {
+        width: 297px;
+    }
+    to {
+        width: 1280px;
+    }
+}
+@keyframes crawlInit {
+    from {
+        bottom: 70px;
+    }
+    to {
+        bottom: 0px;
+    }
+}
+@keyframes crawlDestroy {
+    from {
+        bottom: 0px;
+    }
+    to {
+        bottom: 70px;
+    }
+}
+@keyframes flare {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes nowTabCrawlInit {
+    0% {
+        left: -55.5px;
+    }
+    100% {
+        left: 90px;
+    }
+}
+
+.ldl-blue .template {
+    position: absolute;
+    width: 1620px;
+    bottom: 0;
+    height: 135px;
+    background-size: 100% 100%;
+    z-index: 6;
+}
+.ldl-blue .logo {
+    position: absolute;
+    width: 213px;
+    height: 144px;
+    background-size: cover;
+    bottom: 126px;
+    right: 160px;
+}
+.ldl-blue .weathercomlogo {
+    bottom: 86px;
+    right: 150px;
+    position: absolute;
+    width: 240.75px;
+    height: 24px;
+    background-size: 100%;
+}
+.ldl-blue .temptab {
+    position: absolute;
+    bottom: 132px;
+    width: 135px;
+    height: 40px;
+    right: 303px;
+    background-size: 100% 100%;
+    transform: scaleY(0.88);
+    z-index: 8;
+}
+.temptab span {
+    position: relative;
+    color: #00133a;
+    font-family: "Helvetica Black";
+    font-size: 40px;
+    left: 19px;
+    letter-spacing: 0px;
+    top: -13px;
+    transform: scaleY(0.88);
+}
+.temptab span.degree {
+    font-size: 59px;
+    position: relative;
+    top: 4px;
+}
+.ldl-blue .time {
+    position: absolute;
+    height: 40px;
+    width: 130px;
+    bottom: 131px;
+    transform: scaleY(0.88);
+    right: 460px;
+    background-size: 100% 100%;
+    z-index: 7;
+    text-align: center;
+}
+.ldl-blue .time span {
+    color: #e6e6e6;
+    font-family: "Helvetica Black";
+    font-size: 40px;
+    position: relative;
+    left: 20px;
+    letter-spacing: 2px;
+    transform: scaleY(0.88);
+}
+.ldl-blue .time-padding {
+    position: absolute;
+    bottom: 131px;
+    height: 40px;
+    width: 40px;
+    right: 420px;
+    transform: scaleY(0.88);
+    z-index: 6;
+}
+.ldl-blue .top-bar {
+    position: absolute;
+    bottom: 131px;
+    width: 1280px;
+    height: 41px;
+    background-size: 100% 100%;
+    right: 345px;
+    z-index: 6;
+}
+.ldl-blue .crawl .box {
+    position: absolute;
+    background-size: 100% 100%;
+    width: inherit;
+    height: inherit;
+    bottom: 70px;
+}
+.ldl-blue .crawl {
+    position: absolute;
+    width: 1500px;
+    height: 70px;
+    bottom: 65px;
+    left: 125px;
+    overflow: hidden;
+    z-index: 8;
+}
+.ldl-blue .crawl .scroll {
+    position: absolute;
+    width: 1496px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 50px;
+    transform: scaleY(0.91);
+    word-spacing: -1px;
+    right: 0;
+}
+.ldl-blue .js-marquee {
+    font-family: "Helvetica Neue";
+    display: flex;
+}
+.ldl-blue .upnext-tabs {
+    position: absolute;
+    top: 909px;
+    height: 38.5px;
+    transform: scaleY(0.88);
+    width: 930px;
+    left: 128px;
+    overflow: hidden;
+    z-index: 6;
+}
+.ldl-blue .crawl-tab {
+    position: absolute;
+    bottom: 131px;
+    height: 41px;
+    transform: scaleY(0.88);
+    width: 18px;
+    z-index: 6;
+    background-size: 100% 100%;
+    left: 112px;
+}
+.ldl-blue .flare {
+    position: absolute;
+    width: 129px;
+    height: 32px;
+    bottom: 118px;
+    z-index: 100;
+    transform: scale(2);
+    left: 95px;
+    opacity: 0;
+    z-index: 100;
+}
+.ldl-blue .upnext-tabs .tab {
+    position: absolute;
+    width: 135.5px;
+    height: 41px;
+    background-size: 100% 100%;
+    margin-left: 135px;
+}
+.ldl-blue .upnext-tabs .line {
+    position: absolute;
+    height: 41px;
+    width: 16.5px;
+    background-size: 100% 100%;
+    left: 120px;
+}
+.ldl-blue .upnext-tabs div {
+    position: absolute;
+    left: -137px;
+}
+.upnext-now .nowtext {
+    text-align: center;
+    font-size: 36px;
+    margin-left: 153px;
+    font-family: "Helvetica Cn Bold";
+    transform: scaleY(0.91);
+    letter-spacing: -1.5px;
+    margin-top: -2px;
+}
+.upnext-tabs .padding {
+    position: absolute;
+    width: 100px;
+    height: 41px;
+    margin-left: 35px;
+    background-color: rgb(0,19,58);
+}
+.ldl-blue .observations {
+    bottom: 0;
+    width: 1620px;
+    height: 135px;
+    position: absolute;
+    overflow: hidden;
+    z-index: 6;
+    display: inline-flex;
+}
+.ldl-blue .observations .city-name {
+    position: relative;
+    font-family: "Helvetica Neue";
+    font-size: 50px;
+    transform: scaleY(0.88);
+    left: 154px;
+    margin-top: -60px;
+    text-shadow: 2px 4px 1px #141414;
+    display: flex;
+    letter-spacing: 0.3px;
+    z-index: 6;
+}
+.ldl-blue .tempobs {
+    position: relative;
+    text-shadow: 2px 4px 1px #141414;
+    font-size: 54px;
+    font-family: "Helvetica Black";
+    margin-top: -60px;
+    margin-left: 333px;
+    transform: scaleY(0.88);
+    letter-spacing: 0.3px;
+}
+.ldl-blue .tempobs span.degree {
+    font-size: 70px;
+    top: 4px;
+    position: absolute;
+}
+.ldl-blue .dewpt .info span.degree, .ldl-blue .feelslike span.degree {
+    position: absolute;
+    font-size: 50px;
+    top: -5px;
+    margin-left: -8px;
+}
+.ldl-blue .icon {
+    position: relative;
+    width: 72px;
+    height: 64px;
+    left: 243px;
+    margin-top: -63px;
+}
+.ldl-blue .obs {
+    position: relative;
+    display: flex;
+}
+.ldl-blue .wind, .ldl-blue .humidity, .ldl-blue .dewpt, .ldl-blue .pressure, .ldl-blue .visibility, .ldl-blue .precip, .ldl-blue .gusts, .ldl-blue .feelslike {
+    margin-top: -60px;
+    position: absolute;
+}
+.ldl-blue .humidity .info {
+    margin-left: 446px;
+}
+.ldl-blue .humidity .info span {
+    font-size: 40px;
+    padding-left: 9px;
+}
+.ldl-blue .dewpt .info {
+    margin-left: 460px;
+    position: absolute;
+}
+.ldl-blue .pressure .info {
+    position: absolute;
+    margin-left: 462px;
+}
+.ldl-blue .visibility .info {
+    margin-left: 450px;
+}
+.ldl-blue .precip .info {
+    padding-left: 121px;
+}
+.ldl-blue .feelslike .info {
+    margin-left: 486px;
+}
+.ldl-blue .precip .info span, .ldl-blue .visibility .info span {
+    position: absolute;
+    font-size: 38px;
+    font-family: 'Helvetica Neue';
+    margin-left: 8px;
+    bottom: 2px;
+}
+.ldl-blue .gusts .info {
+    margin-left: 389px;
+}
+.ldl-blue .info span {
+    font-size: 36px;
+    font-family: 'Helvetica Neue';
+    padding-left: 10px;
+}
+.ldl-blue .obsheader {
+    position: absolute;
+    font-size: 35px;
+    margin-left: 245px;
+    margin-top: 21px;
+    transform: scaleY(0.91);
+    color: rgb(255, 226, 109);
+    font-family: 'Helvetica Neue';
+    white-space: nowrap;
+}
+.ldl-blue .info {
+    position: absolute;
+    font-size: 54px;
+    font-family: "Helvetica Black";
+    text-shadow: 2px 4px 1px #141414;
+    margin-left: 366px;
+    margin-top: 12px;
+    white-space: nowrap;
+    transform: scaleY(0.88);
+    word-spacing: -7px;
+}
+/*All of this is for warning crawl stuff*/
+.ldl-black .alertinfo {
+    position: absolute;
+    height: 170px;
+    bottom: 0;
+    z-index: 10;
+}
+.ldl-black .alertinfo .name {
+    position: absolute;
+    transform: scaleY(0.88);
+    font-size: 38px;
+    text-shadow: 2px 2px #000000af;
+    left: 139px;
+    white-space: nowrap;
+    top: 2%;
+}
+.ldl-black .alertinfo .alertcrawl {
+    position: absolute;
+    text-shadow: 2px 2px #000000af;
+    transform: scaleY(0.88);
+    font-size: 58px;
+    top: 34px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 1620px;
+    top: 25%;
+}
+.ldl-black .template {
+    position: absolute;
+    width: 1620px;
+    height: 278px;
+    bottom: 0;
+    background-size: cover;
+    z-index: 10;
+}
+.ldl-black .logo {
+    position: absolute;
+    width: 213px;
+    height: 144px;
+    background-size: cover;
+    bottom: 126px;
+    right: 160px;
+}
+.ldl-black .weathercomlogo {
+    bottom: 86px;
+    right: 150px;
+    position: absolute;
+    width: 240.75px;
+    height: 24px;
+    background-size: 100%;
+}
+.ldl-black .temp, .ldl-black .time {
+    position: absolute;
+    color: #171717;
+    bottom: 126px;
+    font-size: 44px;
+    transform: scaleY(0.8);
+    left: 1134px;
+    z-index: 10;
+}
+.ldl-black .time {
+    letter-spacing: -1px;
+}
+
+.radar .banner {
+    position: absolute;
+    height: 160px;
+    width: 1512px;
+    background-size: cover;
+    right: 0;
+    top: 68px;
+    z-index: 10;
+}
+.satellite .banner {
+    position: absolute;
+    height: 162px;
+    width: 1512px;
+    background-size: cover;
+    right: 0;
+    top: 68px;
+    z-index: 3;
+}
+.radar .hourloop, .satellite .hourloop {
+    position: absolute;
+    color: #171717;
+    font-family: "Interstate Bold Italic";
+    transform: scaleY(0.91);
+    font-size: 44px;
+    margin-top: 107px;
+    margin-left: 878px;
+    z-index: 12;
+}
+.radar .key, .satellite .key {
+    position: absolute;
+    display: flex;
+    color: #171717;
+    font-size: 40px;
+    transform: scaleY(0.91);
+    margin-top: 170px;
+    margin-left: 135px;
+    z-index: 12;
+}
+.radar .key img, .satellite .key img {
+    width: 169px;
+    height: 27px;
+    margin-left: 11px;
+    margin-top: 8px;
+}
+.radar .key span, .satellite .key span {
+    margin-left: 11px;
+}
+.radar .header {
+    z-index: 11;
+    left: 20px;
+}
+.satellite .header {
+    z-index: 6;
+    left: 15px;
+    top: 3px;
+}
+#locradar, #regradar {
+    position: absolute;
+    width: 1620px;
+    height: 1080px;
+    filter: drop-shadow(12px 8px 0px #000);
+    z-index: 6;
+}
+#regradar {
+    filter: drop-shadow(6px 4px 0px #000) !important;
+}
+#locmap, #regmap, #radarsat {
+    position: absolute;
+    width: 1620px;
+    height: 1080px;
+}
+#locoutlines, #regoutlines {
+    position: absolute;
+    width: 1620px;
+    height: 1080px;
+    z-index: 1;
+}
+#locoutlinestrans, #regoutlinestrans {
+    position: absolute;
+    width: 1620px;
+    height: 1080px;
+    z-index: 6;
+}
+
+.current-conditions .city-name {
+    position: absolute;
+    font-size: 52px;
+    margin-top: 184px;
+    margin-left: 140px;
+    transform: scaleY(0.91);
+    color: #171717;
+    letter-spacing: 2.5px;
+}
+.current-conditions .cond {
+    position: absolute;
+    color: #171717;
+    font-size: 54px;
+    transform: scaleY(0.91);
+    margin-left: 198px;
+    margin-top: 525px;
+    text-align: center;
+    width: 320px;
+    line-height: 70px;
+}
+.current-conditions .temp {
+    position: absolute;
+    color: #171717;
+    font-family: "Interstate Black Cn";
+    font-size: 141px;
+    transform: scaleY(0.91);
+    bottom: 218px;
+    margin-left: 155px;
+    text-align: center;
+    width: 410px;
+}
+.current-conditions .icon {
+    width: 285px;
+    height: 256px;
+    position: absolute;
+    margin-top: 270px;
+    margin-left: 222px;
+}
+.current-conditions .labels {
+    position: absolute;
+    font-family: "Interstate";
+    text-align: right;
+    color: #171717;
+    font-size: 46px;
+    transform: scaleY(0.91);
+    right: 667px;
+    margin-top: 215px;
+    line-height: 99px;
+    letter-spacing: 3.5px;
+}
+.current-conditions .right-pane {
+    margin-left: 1018px;
+}
+.current-conditions .humidity, .current-conditions .dewpoint, .current-conditions .visibility,
+.current-conditions .wind, .current-conditions .gusts, .current-conditions .feelslike {
+    position: absolute;
+    font-size: 65px;
+    color: #171717;
+    transform: scaleY(0.91);
+}
+.current-conditions .humidity {
+    margin-top: 250px;
+}
+.current-conditions .dewpoint {
+    margin-top: 341px;
+}
+.current-conditions .feelslike {
+    margin-top: 791px;
+}
+.current-conditions .wind {
+    margin-top: 610px;
+    margin-left: -3px;
+    word-spacing: 5px;
+}
+.current-conditions .gusts {
+    margin-top: 701px;
+    margin-left: -4px;
+    display: flex;
+    position: absolute;
+}
+.gusts .data {
+    color: #171717;
+}
+.gusts .none {
+    position: absolute;
+    color: #171717;
+    letter-spacing: 3px;
+}
+.gusts .miles {
+    font-family: "Interstate";
+    color: #171717;
+    margin-top: 27px;
+    display: block;
+    padding-left: 20px;
+    font-size: 36px;
+    transform: scaleY(0.91);
+    letter-spacing: 2.5px;
+}
+.current-conditions .pressure {
+    position: absolute;
+    font-size: 65px;
+    transform: scaleY(0.91);
+    margin-top: 431px;
+    margin-left: 2px;
+    display: flex;
+}
+.pressure .data {
+    color: #171717;
+    letter-spacing: 3px;
+}
+.pressure .inches {
+    font-family: "Interstate";
+    color: #171717;
+    margin-top: 27px;
+    display: block;
+    padding-left: 16px;
+    font-size: 36px;
+    transform: scaleY(0.91);
+    letter-spacing: 2.5px;
+}
+.pressure .trend {
+    color: #171717;
+    padding-left: 20px;
+}
+.current-conditions .visibility {
+    position: absolute;
+    font-size: 65px;
+    transform: scaleY(0.91);
+    margin-top: 520px;
+    display: flex;
+}
+.visibility .data {
+    color: #171717;
+    letter-spacing: 3px;
+}
+.visibility .miles {
+    font-family: "Interstate";
+    color: #171717;
+    margin-top: 28px;
+    display: block;
+    padding-left: 17px;
+    font-size: 36px;
+    transform: scaleY(0.91);
+    letter-spacing: 2.5px;
+}
+
+.eight-cities .top {
+    position: absolute;
+    color: #171717;
+    display: flex;
+    right: 189px;
+    font-size: 36px;
+    margin-top: 191px;
+    transform: scaleY(0.91);
+}
+.eight-cities .top .temp {
+    color: inherit;
+    padding-right: 366px;
+}
+.eight-cities .top .wind {
+    color: inherit;
+}
+.eight-cities .information {
+    margin-top: 245px;
+    position: absolute;
+}
+.eight-cities .information .extra-loc {
+    display: flex;
+    width: 1370px;
+    height: 157px;
+    margin-left: 125px;
+}
+.extra-loc .name {
+    color: #171717;
+    font-size: 64px;
+    margin-left: 12px;
+    margin-top: 34px;
+    transform: scaleY(0.91);
+    width: 580px;
+    overflow: hidden;
+}
+.extra-loc .temp {
+    color: #171717;
+    font-family: "Interstate Black Cn";
+    transform: scaleY(0.91);
+    font-size: 80px;
+    margin-left: 29px;
+    margin-top: 20px;
+}
+.extra-loc .icon {
+    position: absolute;
+    margin-top: 13px;
+    width: 142px;
+    height: 128px;
+    margin-left: 844px;
+}
+.extra-loc .wind {
+    position: absolute;
+    color: #171717;
+    transform: scaleY(0.91);
+    font-size: 64px;
+    margin-top: 34px;
+    left: 1220px;
+    display: flex;
+}
+.extra-loc .wind .direction {
+    letter-spacing: 0px;
+    color: inherit;
+}
+.extra-loc .wind .speed {
+    font-family: "Interstate Black Cn";
+    padding-left: 22px;
+    color: inherit;
+}
+
+.local-forecast .header {
+    left: 18px;
+    word-spacing: 4px;
+}
+.local-forecast .city-name {
+    position: absolute;
+    color: #171717;
+    font-size: 54px;
+    transform: scaleY(0.91);
+    margin-top: 182px;
+    margin-left: 137px;
+    letter-spacing: 1.3px;
+}
+.local-forecast .information {
+    position: absolute;
+    margin-top: 257px;
+    margin-left: 136px;
+    color: #171717;
+    font-size: 58px;
+}
+.local-forecast .period {
+    color: inherit;
+}
+.local-forecast .description {
+    position: absolute;
+    color: inherit;
+    width: 950px;
+    font-size: 65px;
+    top: 56px;
+    line-height: 75px;
+    word-spacing: 0px;
+    font-family: "Interstate Bold Cn";
+    transform: scaleY(0.91);
+    margin-left: 1px;
+}
+.local-forecast .description span {
+    font-family: "Interstate Black Cn";
+}
+.local-forecast .desc-mov {
+    position: absolute;
+    right: 0px;
+    width: 494px;
+    height: 512px;
+    bottom: 290px;
+}
+
+.week-ahead .header {
+    left: 23px;
+    word-spacing: 4px;
+}
+.week-ahead .city-name {
+    position: absolute;
+    color: #171717;
+    font-size: 54px;
+    transform: scaleY(0.91);
+    margin-top: 182px;
+    margin-left: 137px;
+    letter-spacing: 1.3px;
+}
+.week-ahead .information {
+    position: absolute;
+    margin-left: 125px;
+    margin-top: 250px;
+}
+.week-ahead .day {
+    position: absolute;
+    width: 190px;
+    height: 540px;
+}
+.week-ahead .weekend {
+    position: absolute;
+    width: 190px;
+    height: 50px;
+    background-size: 100%;
+    margin-top: 5px;
+}
+.week-ahead .name {
+    text-align: center;
+    font-size: 52px;
+    font-family: "Interstate";
+    transform: scaleY(0.8);
+    margin-top: 6px;
+    color: #171717;
+}
+.week-ahead .name.wk {
+    color: rgb(253, 233, 119);
+}
+.week-ahead .icon {
+    width: 162px;
+    height: 154px;
+    margin-top: 12px;
+    margin-left: 10px;
+}
+.week-ahead .cond {
+    position: absolute;
+    color: #171717;
+    font-size: 42px;
+    transform: scaleY(0.91);
+    text-align: center;
+    margin-top: 5px;
+    margin-left: 8px;
+    width: 170px;
+}
+.week-ahead .high {
+    position: absolute;
+    color: #171717;
+    transform: scaleY(0.91);
+    font-size: 88px;
+    font-family: "Interstate Black Cn";
+    text-align: center;
+    width: 190px;
+    margin-top: 146px;
+}
+.week-ahead .low {
+    color: #171717;
+    transform: scaleY(0.91);
+    font-family: "Interstate Black Cn";
+    text-align: center;
+    font-size: 88px;
+    margin-top: 228px;
+    position: absolute;
+    width: 190px;
+}
+.week-ahead .day.ii {
+    margin-left: 196px;
+}
+.week-ahead .day.iii {
+    margin-left: 395px;
+}
+.week-ahead .day.iv {
+    margin-left: 593px;
+}
+.week-ahead .day.v {
+    margin-left: 790px;
+}
+.week-ahead .day.vi {
+    margin-left: 988px;
+}
+.week-ahead .day.vii {
+    margin-left: 1186px;
+}
+
+.air-quality .header {
+    left: 30px;
+}
+.air-quality .city-name {
+    position: absolute;
+    font-size: 52px;
+    margin-top: 184px;
+    margin-left: 140px;
+    transform: scaleY(0.91);
+    color: #171717;
+    letter-spacing: 2.5px;
+}
+.air-quality .day {
+    position: absolute;
+    transform: scaleY(0.91);
+    color: #171717;
+    font-size: 70px;
+    margin-left: 138px;
+    margin-top: 270px;
+}
+.air-quality .primpollut {
+    position: absolute;
+    transform: scaleY(0.91);
+    color: #171717;
+    font-size: 48px;
+    margin-left: 136px;
+    margin-top: 450px;
+}
+.air-quality .primpollut .header-text {
+    font-family: "Interstate";
+    color: inherit;
+    letter-spacing: 1.5px;
+}
+.air-quality .primpollut .pollutants {
+    padding-top: 13px;
+    font-size: 68px;
+    color: inherit;
+    display: grid;
+}
+.air-quality .qualitybar {
+    position: absolute;
+    width: 510px;
+    right: 150px;
+    margin-top: 278px;
+    display: grid;
+}
+.qualitybar .extreme,
+.qualitybar .high,
+.qualitybar .unhealthy,
+.qualitybar .moderate,
+.qualitybar .low {
+    width: inherit;
+    height: 96.4px;
+}
+.qualitybar .extreme {
+    background-color: rgb(111, 29, 50);
+}
+.qualitybar .high {
+    background-color: rgb(170, 39, 17);
+}
+.qualitybar .unhealthy {
+    background-color: rgb(224, 122, 67);
+}
+.qualitybar .moderate {
+    background-color: rgb(207, 170, 49);
+}
+.qualitybar .low {
+    background-color: rgb(67, 143, 72);
+}
+.qualitybar span.text {
+    position: absolute;
+    margin-top: 20px;
+    font-size: 54px;
+    margin-left: 44px;
+    transform: scaleY(0.91);
+}
+.qualitybar .unhealthy span.text {
+    position: absolute;
+    margin-top: 10px;
+    font-size: 39px;
+    margin-left: 44px;
+    transform: scaleY(0.91);
+}
+.air-quality .source {
+    position: absolute;
+    font-family: "Interstate";
+    transform: scaleY(0.88);
+    bottom: 212px;
+    margin-left: 139px;
+    font-size: 38px;
+    word-spacing: 2.5px;
+    color: #171717;
+}
+.air-quality .qualityarrow {
+    position: absolute;
+    height: 101px;
+    width: 77px;
+    background-size: 100%;
+    bottom: 270px;
+    right: 630px;
+    transform: scaleY(0.91);
+}
+
+.almanac .header {
+    left: 11px;
+}
+.almanac .day {
+    position: absolute;
+    font-size: 45px;
+    transform: scaleY(0.91);
+    margin-top: 192px;
+    left: 680px;
+    color: #171717;
+}
+.almanac .day.ii {
+    left: 1056px;
+}
+.almanac .almheader {
+    position: absolute;
+    color: inherit;
+}
+.almanac .sunrise, .almanac .sunset {
+    position: absolute;
+    font-size: 60px;
+    width: 360px;
+    margin-top: 68px;
+    transform: scaleY(0.91);
+    color: inherit;
+    word-spacing: -5px;
+    font-family: "Interstate Black";
+}
+.almanac .sunrise span, .almanac .sunset span {
+    font-size: 49px;
+    font-family: "Interstate Bold";
+}
+.almanac .sunset {
+    margin-top: 172px;
+}
+.almanac .sunrise-text, .almanac .sunset-text {
+    position: absolute;
+    left: 335px;
+    font-size: 48px;
+    transform: scaleY(0.91);
+    margin-top: 264px;
+    color: #171717;
+}
+.almanac .sunset-text {
+    margin-top: 355px;
+}
+.almanac .stationname {
+    position: absolute;
+    font-size: 54px;
+    transform: scaleY(0.88);
+    margin-top: 455px;
+    margin-left: 138px;
+}
+.almanac .bottomheader {
+    position: absolute;
+    color: #171717;
+    transform: scaleY(0.91);
+    margin-left: 138px;
+    margin-top: 520px;
+    font-size: 40px;
+}
+.almanac .almdate {
+    position: absolute;
+    color: inherit;
+    white-space: nowrap;
+}
+.almanac .bottomheader .high {
+    position: absolute;
+    color: inherit;
+    margin-left: 586px;
+}
+.almanac .bottomheader .low {
+    position: absolute;
+    color: inherit;
+    margin-left: 962px;
+}
+.almanac .yesterday, .almanac .average, .almanac .records {
+    position: absolute;
+    color: #171717;
+    transform: scaleY(0.91);
+    margin-left: 138px;
+    margin-top: 592px;
+    font-size: 62px;
+}
+.almanac .y-header, .almanac .a-header, .almanac .r-header,
+.almanac .highyear, .almanac .lowyear {
+    position: absolute;
+    color: inherit;
+    width: 450px;
+    margin-top: 13px;
+    font-size: 46.5px;
+}
+.almanac .yesterday .high, .almanac .yesterday .low,
+.almanac .average .high, .almanac .average .low,
+.almanac .records .high, .almanac .records .low {
+    font-family: "Interstate Black";
+    position: absolute;
+    color: inherit;
+    margin-left: 586px;
+}
+.almanac .yesterday .low, .almanac .average .low,
+.almanac .records .low {
+    margin-left: 965px;
+}
+.almanac .average {
+    margin-top: 684px;
+}
+.almanac .records {
+    margin-top: 775px;
+}
+.almanac .highyear {
+    margin-left: 443px;
+}
+.almanac .lowyear {
+    margin-left: 826px;
+}
+
+.daypart-forecast .header {
+    left: 20px;
+    letter-spacing: 1.5px;
+}
+.daypart-forecast .city-name {
+    position: absolute;
+    font-size: 52px;
+    margin-top: 184px;
+    margin-left: 140px;
+    transform: scaleY(0.91);
+    color: #171717;
+    letter-spacing: 2.5px;
+}
+.daypart-forecast .forecast-period {
+    position: absolute;
+    transform: scaleY(0.91);
+    color: #171717;
+    left: 842px;
+    margin-top: 111px;
+    font-size: 36px;
+}
+.daypart-forecast .information {
+    position: absolute;
+    display: flex;
+    margin-top: 242px;
+    margin-left: 117px;
+}
+.daypart-forecast .hour {
+    width: 345px;
+    height: 570px;
+    text-align: center;
+    position: absolute;
+}
+.daypart-forecast .hour .time,
+.daypart-forecast .hour .cond,
+.daypart-forecast .hour .wind {
+    position: absolute;
+    width: inherit;
+    text-align: inherit;
+    color: #171717;
+    transform: scaleY(0.88);
+}
+.daypart-forecast .hour .time {
+    font-size: 60px;
+    margin-top: 11px;
+    word-spacing: -5px;
+}
+.daypart-forecast .hour .cond {
+    font-size: 44px;
+    margin-top: 217px;
+}
+.daypart-forecast .hour .wind {
+    bottom: 0;
+    font-size: 50px;
+    letter-spacing: 0px;
+}
+.daypart-forecast .hour .icon {
+    position: absolute;
+    width: 172px;
+    height: 144px;
+    margin-left: 84px;
+    margin-top: 74px;
+}
+.daypart-forecast .hour .bar {
+    position: absolute;
+    background-color: #749abf;
+    width: 230px;
+    bottom: 50px;
+    margin-left: 56px;
+}
+.hour .bar .temp {
+    font-size: 88px;
+    font-family: "Interstate Black Cn";
+    transform: scaleY(0.91);
+    margin-top: -10px;
+}
+.daypart-forecast .hour.ii {
+    margin-left: 346px;
+}
+.daypart-forecast .hour.iii {
+    margin-left: 695px;
+}
+.daypart-forecast .hour.iv {
+    margin-left: 1040px;
+}
+
+.bulletin .header {
+    left: 25px;
+    letter-spacing: 1.5px;
+}
+.bulletin .boxheader {
+    position: absolute;
+    font-size: 36px;
+    transform: scaleY(0.91);
+    left: 256px;
+    top: 193px;
+}
+.bulletin .noaalogo {
+    width: 128px;
+    height: 128px;
+    left: 133px;
+    top: 186px;
+}
+.bulletin .alerts {
+    position: absolute;
+    width: 1350px;
+    transform: scaleY(0.88);
+    height: 726px;
+    font-size: 66px;
+    font-family: "Interstate";
+    margin-top: 268px;
+    margin-left: 139px;
+    word-spacing: -2px;
+    line-height: 75px;
+}
+.bulletin .alerts span {
+    padding-bottom: 40px;
+    display: block;
+}
+
+.map .header {
+    z-index: 2;
+    transform: scaleY(0.88);
+    font-size: 80.5px;
+    left: -6px;
+    top: -4px;
+}
+.map-regional {
+    position: absolute;
+    width: 1620px;
+    height: 1080px;
+}
+.map-regional .merc {
+    position: absolute;
+    width: 1620px;
+    height: 1080px;
+    scale: 6.733;
+    transform: scaleY(0.793);
+    /* opacity: 0; */
+}
+.map-regional .borders, .map-regional .coastlines {
+    position: absolute;
+    width: 1620px;
+    height: 1080px;
+    scale: 6.733;
+    opacity: 0.91;
+}
+.map-cities {
+    position: absolute;
+}
+.map-cities .city {
+    position: absolute;
+    width: 272px;
+    height: 216px;
+}
+.map-cities .city.selected {
+    background-color: #6a9eff7f;
+}
+.city .city-name {
+    position: absolute;
+    font-size: 52px;
+    transform: scaleY(0.88);
+    white-space: nowrap;
+}
+.city .temp {
+    position: absolute;
+    color: #d4d400;
+    font-family: "Interstate Black Cn";
+    font-size: 86px;
+    transform: scaleY(0.91);
+    margin-top: 52px;
+    margin-left: -39px;
+    text-align: right;
+    width: 140px;
+}
+.city .icon {
+    position: absolute;
+    width: 166px;
+    height: 158px;
+    margin-top: 51px;
+    margin-left: 104px;
+}
+
+.reg-cities, .loc-cities {
+    position: absolute;
+    z-index: 5;
+}
+.reg-cities-trans, .loc-cities-trans {
+    position: absolute;
+    z-index: 7;
+}
+.dot, .dot-trans, .dot-outline {
+    height: 35px;
+    width: 35px;
+    position: absolute;
+}
+.radar-city {
+    position: absolute;
+}
+.radar-city .city-name, .radar-city .city-name-trans {
+    font-family: "Interstate Bold";
+    font-size: 40px;
+    position: absolute;
+    color: rgba(212,212,212,1);
+    transform: scaleY(0.91);
+    white-space: nowrap;
+}
+.radar-city .city-name-trans {
+    opacity: 0.7;
+}
+
+.outdoor-activity .header {
+    margin-left: 180px;
+    transform: scaleX(1.12);
+}
+.outdoor-activity .outdoor-bg {
+    position: absolute;
+    width: 620px;
+    height: 970px;
+    right: -50px;
+    top: -2%;
+}
+.outdoor-activity .time {
+    position: absolute;
+    text-align: center;
+    width: 1010px;
+    font-size: 74px;
+    transform: scaleY(0.85);
+    top: 194px;
+    left: 111px;
+    color: #171717;
+}
+.outdoor-activity .temp {
+    position: absolute;
+    font-size: 160px;
+    font-family: "Interstate Black";
+    top: 351px;
+    right: 1074px;
+    transform: scaleY(0.89);
+    color: #171717;
+    text-align: right;
+}
+.outdoor-activity .icon {
+    position: absolute;
+    width: 306px;
+    height: 268px;
+    top: 280px;
+    left: 584px;
+}
+.outdoor-activity .cond {
+    position: absolute;
+    font-size: 54px;
+    transform: scaleY(0.89);
+    top: 547px;
+    left: 109px;
+    text-align: center;
+    color: #171717;
+    width: 1010px;
+}
+.outdoor-activity .wind, .outdoor-activity .feelslike {
+    position: absolute;
+    width: 990px;
+    height: 80px;
+    bottom: 295px;
+    left: 125px;
+}
+.outdoor-activity .feelslike {
+    bottom: 208px;
+}
+.outdoor-activity .heading {
+    position: absolute;
+    font-size: 58px;
+    left: 100px;
+    font-family: "Interstate";
+    transform: scaleY(0.85);
+    margin-top: 11px;
+    white-space: nowrap;
+    color: #171717;
+    word-spacing: 5px;
+}
+.outdoor-activity .val {
+    position: absolute;
+    bottom:  0;
+    left: 540px;
+    font-size: 84px;
+    transform: scaleY(0.89);
+    white-space: nowrap;
+    color: #171717;
+}

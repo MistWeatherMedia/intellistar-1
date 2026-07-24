@@ -22,6 +22,18 @@
     font-family: "Interstate Bold Cn";
     src: url(fonts/Interstate-BoldCondensed.woff);
 }
+@font-face {
+    font-family: "Helvetica Black";
+    src: url(fonts/helveticablackoriginal_bold.otf);
+}
+@font-face {
+    font-family: "Helvetica Cn Bold";
+    src: url(fonts/Helvetica-Condensed-Bold.otf);
+}
+@font-face {
+    font-family: "Helvetica Neue";
+    src: url(fonts/HelveticaNeue-Bold.otf);
+}
 
 a, body, div, h1, html, p {
     margin: 0;
@@ -55,7 +67,7 @@ body, html {
 #background {
     position: absolute;
     background-image: url(images/domestic.png);
-    background-size: cover;
+    background-size: 100% 100%;
 }
 .current-conditions .box {
     position: absolute;
@@ -93,12 +105,22 @@ body, html {
     background-size: cover;
     /* opacity: 0; */
 }
-.ldl .logo {
+.outdoor-activity .box {
+    position: absolute;
+    background-image: url(images/boxes/outdoor_activity_box.png);
+    background-size: cover;
+    /* opacity: 0; */
+}
+.ldl-black .logo, .ldl-blue .logo {
     background-image: url(images/twcDomesticLogo.png);
     z-index: 10000;
 }
-.ldl .weathercomlogo {
+.ldl-black .weathercomlogo, .ldl-blue .weathercomlogo {
     background-image: url(images/weatherDotComLogo.png);
+    z-index: 10000;
+}
+.ldl-blue .weathercomlogo {
+    z-index: 8;
 }
 .week-ahead .weekend {
     background-image: url(images/weekend_rectangle.png);
@@ -188,7 +210,7 @@ body, html {
 }
 #settings-menu .location, #settings-menu .flavor,
 #settings-menu .versions, #settings-menu .songs,
-#settings-menu .enablevl {
+#settings-menu .enablevl, #settings-menu .ldl-option {
     position: absolute;
     display: flex;
     top: 10%;
@@ -208,11 +230,14 @@ body, html {
 #settings-menu .enablevl {
     margin-top: 280px;
 }
+#settings-menu .ldloption {
+    margin-top: 350px;
+}
 #settings-menu .loctext, 
 #settings-menu .flavortext,
 #settings-menu .versionstext,
 #settings-menu .songstext, .songoffsettext,
-#settings-menu .enablevltext {
+#settings-menu .enablevltext, #settings-menu .ldloptiontext {
     color: inherit;
     top: 50px;
     position: absolute;
@@ -244,6 +269,10 @@ body, html {
     left: 750px;
     width: 400px;
     margin-top: 13.5%;
+}
+.ldloptiontext {
+    margin-top: 420px;
+    margin-left: 10px;
 }
 #locsearch, #extralocbutton, #uploadsongbutton, #advlocsearch, #extranameconfirm {
     position: absolute;
@@ -300,8 +329,25 @@ body, html {
     border: none;
     background-color: #232731;
 }
+.ldlbutton {
+    z-index: 10000;
+    position: absolute;
+    top: 474px;
+    width: 140px;
+    height: 38px;
+    font-size: 36px;
+    border: none;
+    background-color: #232731;
+}
+button#ldlbuttonboth {
+    left: 290px;
+}
+button#ldlbuttonobs {
+    left: 435px;
+}
 .flavorbutton div,
-.versionsbutton div {
+.versionsbutton div,
+.ldlbutton div {
     margin-top: -3px;
 }
 button#flavor60{
@@ -322,6 +368,12 @@ button#versions2007 {
 }
 button#versions2008 {
     left: 520px;
+}
+button#versions2009 {
+    left: 665px;
+}
+button#versions2010 {
+    left: 810px;
 }
 #flavormore div {
     margin-top: -15px;

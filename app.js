@@ -9,14 +9,3 @@ app.listen(port, '0.0.0.0', () => {
     console.log("IntelliSTAR 1 by Mist Weather Media")
     console.log(`Webroot serving on 127.0.0.1:${port}`);
   });
-
-app.get('/airports', async (req, res) => {
-  try {
-    const response = await fetch('https://nasstatus.faa.gov/api/airport-events');
-    const airportData = await response.json();
-    res.json(airportData);
-    console.log("Client requested airport data.")
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch airport data' });
-  }
-})

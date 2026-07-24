@@ -50,6 +50,12 @@
     left: 7%;
     top: 16%;
 }
+.outdoor-activity .box {
+    width: 1028.25px;
+    height: 677.25px;
+    left: 6.7%;
+    top: 17%;
+}
 .map .box {
     width: 1505.25px;
     height: 105px;
@@ -74,7 +80,7 @@
     left: 7%;
     top: 16%;
 }
-.ldl .template {
+.ldl-black .template {
     position: absolute;
     width: 1620px;
     height: 278px;
@@ -82,7 +88,7 @@
     background-size: cover;
     z-index: 10;
 }
-.ldl .logo {
+.ldl-black .logo {
     position: absolute;
     width: 213px;
     height: 144px;
@@ -90,16 +96,15 @@
     bottom: 126px;
     right: 160px;
 }
-.ldl .weathercomlogo {
+.ldl-black .weathercomlogo {
     bottom: 86px;
     right: 150px;
     position: absolute;
     width: 240.75px;
     height: 24px;
     background-size: 100%;
-    z-index: 10;
 }
-.ldl .temp, .ldl .time {
+.ldl-black .temp, .ldl-black .time {
     position: absolute;
     color: #171717;
     bottom: 126px;
@@ -108,10 +113,10 @@
     left: 1134px;
     z-index: 10;
 }
-.ldl .time {
+.ldl-black .time {
     letter-spacing: -1px;
 }
-.ldl .crawl {
+.ldl-black .crawl {
     position: absolute;
     bottom: 66px;
     right: 0;
@@ -124,7 +129,7 @@
     width: 1620px;
     z-index: 10;
 }
-.ldl .observations .currently {
+.ldl-black .observations .currently {
     color: #79BAF2;
     position: absolute;
     bottom: 127px;
@@ -134,7 +139,7 @@
     z-index: 10;
     /* text-shadow: 1px 2px #000; */
 }
-.ldl .observations .city-name {
+.ldl-black .observations .city-name {
     position: absolute;
     margin-left: 118px;
     bottom: 70px;
@@ -143,7 +148,7 @@
     letter-spacing: 2px;
     z-index: 10;
 }
-.ldl .observations .info-header {
+.ldl-black .observations .info-header {
     position: absolute;
     transform: scaleY(0.91);
     bottom: 76px;
@@ -152,7 +157,7 @@
     letter-spacing: 1.25px;
     z-index: 10;
 }
-.ldl .observations .info {
+.ldl-black .observations .info {
     position: absolute;
     transform: scaleY(0.91);
     bottom: 71px;
@@ -161,7 +166,7 @@
     font-family: "Interstate Bold Cn";
     z-index: 10;
 }
-.ldl .icon {
+.ldl-black .icon {
     position: absolute;
     background-size: 100% 100%;
     width: 113px;
@@ -185,13 +190,13 @@
     word-spacing: 1px;
     z-index: 10;
 }
-.ldl .alertinfo {
+.ldl-black .alertinfo {
     position: absolute;
     height: 170px;
     bottom: 0;
     z-index: 10;
 }
-.ldl .alertinfo .name {
+.ldl-black .alertinfo .name {
     position: absolute;
     transform: scaleY(0.88);
     font-size: 38px;
@@ -200,7 +205,7 @@
     white-space: nowrap;
     top: 2%;
 }
-.ldl .alertinfo .alertcrawl {
+.ldl-black .alertinfo .alertcrawl {
     position: absolute;
     text-shadow: 2px 2px #000000af;
     transform: scaleY(0.88);
@@ -1080,7 +1085,87 @@
     position: absolute;
     color: rgba(212,212,212,1);
     transform: scaleY(0.91);
+    white-space: nowrap;
 }
 .radar-city .city-name-trans {
     opacity: 0.7;
+}
+
+.outdoor-activity .header {
+    margin-left: 180px;
+    transform: scaleX(1.12);
+}
+.outdoor-activity .outdoor-bg {
+    position: absolute;
+    width: 620px;
+    height: 970px;
+    right: -50px;
+    top: -2%;
+}
+.outdoor-activity .time {
+    position: absolute;
+    text-align: center;
+    width: 1010px;
+    font-size: 74px;
+    transform: scaleY(0.85);
+    top: 194px;
+    left: 111px;
+    color: #171717;
+}
+.outdoor-activity .temp {
+    position: absolute;
+    font-size: 160px;
+    font-family: "Interstate Black";
+    top: 351px;
+    right: 1074px;
+    transform: scaleY(0.89);
+    color: #171717;
+    text-align: right;
+}
+.outdoor-activity .icon {
+    position: absolute;
+    width: 306px;
+    height: 268px;
+    top: 280px;
+    left: 584px;
+}
+.outdoor-activity .cond {
+    position: absolute;
+    font-size: 54px;
+    transform: scaleY(0.89);
+    top: 547px;
+    left: 109px;
+    text-align: center;
+    color: #171717;
+    width: 1010px;
+}
+.outdoor-activity .wind, .outdoor-activity .feelslike {
+    position: absolute;
+    width: 990px;
+    height: 80px;
+    bottom: 295px;
+    left: 125px;
+}
+.outdoor-activity .feelslike {
+    bottom: 208px;
+}
+.outdoor-activity .heading {
+    position: absolute;
+    font-size: 58px;
+    left: 100px;
+    font-family: "Interstate";
+    transform: scaleY(0.85);
+    margin-top: 11px;
+    white-space: nowrap;
+    color: #171717;
+    word-spacing: 5px;
+}
+.outdoor-activity .val {
+    position: absolute;
+    bottom:  0;
+    left: 540px;
+    font-size: 84px;
+    transform: scaleY(0.89);
+    white-space: nowrap;
+    color: #171717;
 }

@@ -6,7 +6,7 @@ var regradar, locradar, radarsat,
 mapboxgl.accessToken = "";
 var mapStyle = "mapbox://styles/colster/cmiccqynn00as01s4bt6501il";
 
-function createMaps() {
+async function createMaps() {
   mapboxgl.accessToken = map_key;
   var radarCoords = [
     !locationConfig.mainCity.lon || !locationConfig.mainCity.lat ? 0 : locationConfig.mainCity.lon,
@@ -307,6 +307,9 @@ function createMaps() {
   // radarsat.on("style.load", () => {
   //   radarsat.setFog({});
   // });
+  setTimeout(async () => {
+    await preloadRadars();
+  }, 1000);
 }
 
 async function fetchRadarTimestamps(map, frameCount) {
@@ -485,28 +488,6 @@ function stopRadar(map, timestamps) {
   clearInterval(radarAnimation);
 }
 
-var trfMap
-function initTrafficMap() {
-  trfMap = tt.map({
-    key: traf_key,
-    container: 'trafmap',
-    center: [systemSettings.traffic.lon, systemSettings.traffic.lat],
-    doubleClickZoom: false,
-    scrollZoom: false,
-    dragPan: false,
-    boxZoom: false,
-    dragRotate: false,
-    touchZoomRotate: false,
-    touchPitch: false,
-    pitchWithRotate: false,
-    zoom: 9.4,
-    style: "https://api.tomtom.com/style/2/custom/style/dG9tdG9tQEBAQW1IV1hMWktoeTllNUJYUjtmZTAyMzAwYy1iMjMzLTQ3NDktOTBiMC1mOGEyZGNhOWM5ZWM=.json?key=" + traf_key,
-    stylesVisibility: {
-        trafficFlow: true
-    },
-  });
-}
-
 function addRadarCities(){
   $(".reg-cities").empty();
   $(".reg-cities-trans").empty();
@@ -538,4 +519,37 @@ function addRadarCities(){
         <div class="city-name-trans" style="margin-top: ${locationConfig.radarCities.local[i].nameTopMargin}px; margin-left: ${locationConfig.radarCities.local[i].nameLeftMargin}px;">${locationConfig.radarCities.local[i].locationName}</div>
       </div>`)
   }
+}
+
+async function preloadRadars(){
+  await initializeRadar(regradar);
+  await initializeRadar(locradar);
+  $('.radar').fadeIn(0);
+  $('#regradar').fadeIn(0);
+  $('#regmap').fadeIn(0);
+  $('#regoutlines').fadeIn(0);
+  $('#regoutlinestrans').fadeIn(0);
+  $('#locradar').fadeIn(0);
+  $('#locmap').fadeIn(0);
+  $('#locoutlines').fadeIn(0);
+  $('#locoutlinestrans').fadeIn(0);
+  locmap.resize();
+  locradar.resize();
+  locoutlines.resize();
+  locoutlinestrans.resize();
+  regmap.resize();
+  regradar.resize();
+  regoutlines.resize();
+  regoutlinestrans.resize();
+  setTimeout(() => {
+    $('.radar').fadeOut(0);
+    $('#regradar').fadeOut(0);
+    $('#regmap').fadeOut(0);
+    $('#regoutlines').fadeOut(0);
+    $('#regoutlinestrans').fadeOut(0);
+    $('#locradar').fadeOut(0);
+    $('#locmap').fadeOut(0);
+    $('#locoutlines').fadeOut(0);
+    $('#locoutlinestrans').fadeOut(0);
+  }, 2000);
 }

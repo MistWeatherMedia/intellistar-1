@@ -1,4 +1,12 @@
 Make sure to report any bugs or issues in the Issues tab!
+= JULY 24, 2026 | VERSION 1.2 =
+ -  Blue LDL added
+ -  2010 icons added
+ -  Added versions 2009 and 2010
+ -  LDL type can now be changed in the settings menu
+ -  Added bulletin narrations
+ -  Outdoor Activity slide added
+ -  Other various fixes
 = JUNE 20, 2026 | VERSION 1.1 =
  -  Advance map settings added, currently in beta mode
  -  Alert crawl bug fixes

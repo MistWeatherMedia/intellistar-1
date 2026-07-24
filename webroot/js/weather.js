@@ -8,6 +8,7 @@ var weatherInfo = {
         alerts: [],
         crawlAlert: {
             enabled: false,
+            alert: undefined
         }
     },
     currentConditions: {
@@ -49,6 +50,16 @@ var weatherInfo = {
         categoryIndex: 0,
         pollutants: []
     },
+    outdoorActivity: {
+        noReport: false,
+        time: "",
+        temp: "",
+        cond: "",
+        icon: "",
+        wind: "",
+        bg: 1,
+        feelslike: {type:undefined,val:""}
+    },
     daypartForecast: {
         noReport: false,
         times: []
@@ -76,6 +87,7 @@ async function grabData() {
     await grabAirQuality();
     await grabAlmanac();
     await grabDaypartForecast();
+    await grabOutdoorActivityData();
     await grabMapCityData();
     await grabAlerts();
     console.log(`Weather grab done in ${Date.now() - now}ms`);
@@ -301,7 +313,7 @@ async function grabDaypartForecast() {
     $.getJSON(url, function (data) {
         // console.log(dateFns.getHours(data.validTimeLocal[0]));
         // console.log(data.precipChance[0]);
-        if(data.precipChance[0] >= 15){weatherInfo.specialModes.precip = true}
+        if(data.precipChance[0] > 15){weatherInfo.specialModes.precip = true}
         var dpidx = 0;
         for (var i = 0; i < data.validTimeLocal.length; i++) {
             var dpTime = dateFns.getHours(data.validTimeLocal[i]);
@@ -365,18 +377,45 @@ async function grabMapCityData(){
 async function grabAlerts() {
     weatherInfo.bulletin.alerts = [];
     weatherInfo.bulletin.enabled = false;
+    weatherInfo.bulletin.crawlAlert.enabled = false;
     weatherInfo.specialModes.bulletin = false
     $.getJSON(`https://api.weather.com/v3/alerts/headlines?geocode=${locationConfig.mainCity.lat},${locationConfig.mainCity.lon}&format=json&language=en-US&apiKey=${api_key}`, function (data) {
-        if (!data) return;
+        if (!data) {
+            weatherInfo.bulletin.enabled = false;
+            weatherInfo.bulletin.crawlAlert.enabled = false;
+            weatherInfo.bulletin.crawlAlert.alert = undefined;
+            endAlertCrawl();
+            return;
+        }
         weatherInfo.bulletin.enabled = true;
         for (let i = 0; i < data.alerts.length; i++) {
+            if(data.alerts[i].eventDescription == "Special Weather Statement"){
+                grabAlertCrawl(data.alerts[i].detailKey);
+                continue;
+            }
             var bulletinAlert = {
                 name: data.alerts[i].eventDescription,
                 significance: data.alerts[i].significance,
-                desc: `${data.alerts[i].eventDescription}${data.alerts[i].headlineText.endsWith("in effect") ? '' : ' in effect'}${data.alerts[i].headlineText.split(data.alerts[i].eventDescription)[1]}`,
+                desc: data.alerts[i].headlineText,
                 detailKey: data.alerts[i].detailKey,
                 severity: data.alerts[i].severity
             }
+            
+            if(warningSettings[data.alerts[i].eventDescription]){
+                bulletinAlert.priority = warningSettings[data.alerts[i].eventDescription].priority
+                if(!warningSettings[data.alerts[i].eventDescription].included){
+                    return;
+                }
+            }
+            else{bulletinAlert.priority = 125;}
+
+            var sameBulletin = false;
+            for(let j = 0; j < weatherInfo.bulletin.alerts.length; j++){
+                if(data.alerts[i].eventDescription == weatherInfo.bulletin.alerts[j].name){
+                    sameBulletin = true;
+                }
+            }
+            if(sameBulletin){continue}
             if (weatherInfo.bulletin.crawlAlert.enabled == false && data.alerts[i].urgencyCode == 1) {
                 weatherInfo.bulletin.crawlAlert.enabled = true;
                 grabAlertCrawl(bulletinAlert.detailKey);
@@ -384,22 +423,31 @@ async function grabAlerts() {
                 weatherInfo.bulletin.alerts.push(bulletinAlert);
             }
         }
+        weatherInfo.bulletin.alerts = weatherInfo.bulletin.alerts.sort((a, b) => a.priority - b.priority);
         if(weatherInfo.bulletin.alerts.length > 0){weatherInfo.specialModes.bulletin = true}
         else{
             weatherInfo.specialModes.bulletin = false;
             weatherInfo.bulletin.enabled = false;
+            weatherInfo.bulletin.crawlAlert.enabled = false;
+            weatherInfo.bulletin.crawlAlert.alert = undefined;
+            endAlertCrawl();
         }
     }).fail(function () {
         if(weatherInfo.bulletin.alerts.length <= 0){weatherInfo.specialModes.bulletin = false}
         weatherInfo.bulletin.enabled = false;
+        weatherInfo.bulletin.crawlAlert.enabled = false;
+        weatherInfo.bulletin.crawlAlert.alert = undefined;
+        endAlertCrawl();
     })
 }
 function grabAlertCrawl(dKey) {
-    if(weatherInfo.bulletin.crawlAlert.alert){
+    weatherInfo.bulletin.crawlAlert.enabled = true;
+    if(weatherInfo.bulletin.crawlAlert.alert != undefined){
         if(weatherInfo.bulletin.crawlAlert.alert.detailKey == dKey) return;
     }
     $.getJSON('https://api.weather.com/v3/alerts/detail?alertId=' + dKey + '&format=json&language=en-US&apiKey=' + api_key, function (data) {
         console.log(data);
+        if(weatherInfo.bulletin.crawlAlert.alert != undefined && (weatherInfo.bulletin.crawlAlert.alert.priority > warningSettings[data.alertDetail.eventDescription].priority)) return;
         var alert = {
             name: data.alertDetail.eventDescription,
             code: data.alertDetail.productIdentifier,
@@ -407,6 +455,7 @@ function grabAlertCrawl(dKey) {
             significance: data.alertDetail.significance,
             description: data.alertDetail.texts[0].description,
             severe: warningSettings[data.alertDetail.eventDescription].severe,
+            priority: warningSettings[data.alertDetail.eventDescription].priority,
             detailKey: dKey
         }
         if (alert.severe) {
@@ -416,9 +465,8 @@ function grabAlertCrawl(dKey) {
         setTimeout(startAlertCrawl, 1000);
     });
 }
-
-function grabMoonphases(){
-    $.getJSON(`https://www.icalendar37.net/lunar/api/?lang=en&month=${dateFns.format(new Date(),"M")}&year=${dateFns.format(new Date(),"YYYY")}`, function(data){
+async function grabMoonphases(){
+    await $.getJSON(`https://www.icalendar37.net/lunar/api/?lang=en&month=${dateFns.format(new Date(),"M")}&year=${dateFns.format(new Date(),"YYYY")}`, function(data){
         for(phase in data.phase){
             if(data.phase[phase].isPhaseLimit != false){
                 if(phase < new Date().getDate()){ continue; }
@@ -429,16 +477,54 @@ function grabMoonphases(){
             }
         }
     })
-    setTimeout(() =>{
-        $.getJSON(`https://www.icalendar37.net/lunar/api/?lang=en&month=${dateFns.format(dateFns.addMonths(new Date(),1),"M")}&year=${dateFns.format(new Date(),"YYYY")}`, function(data){
-            for(phase in data.phase){
-                if(data.phase[phase].isPhaseLimit != false){
-                    var moonphaseToAdd = {date:"",type:""}
-                    moonphaseToAdd.date = data.monthName.substring(0,3) + " " + phase;
-                    moonphaseToAdd.type = data.phase[phase].phaseName.split(" ")[0]
-                    weatherInfo.almanac.moonphases.push(moonphaseToAdd);
+    await $.getJSON(`https://www.icalendar37.net/lunar/api/?lang=en&month=${dateFns.format(dateFns.addMonths(new Date(),1),"M")}&year=${dateFns.format(new Date(),"YYYY")}`, function(data){
+        for(phase in data.phase){
+            if(data.phase[phase].isPhaseLimit != false){
+                var moonphaseToAdd = {date:"",type:""}
+                moonphaseToAdd.date = data.monthName.substring(0,3) + " " + phase;
+                moonphaseToAdd.type = data.phase[phase].phaseName.split(" ")[0]
+                weatherInfo.almanac.moonphases.push(moonphaseToAdd);
+            }
+        }
+    })
+}
+async function grabOutdoorActivityData(){
+    var oaCurrent = () => {
+        if(dateFns.getHours(new Date()) <= 6){
+            return 9;
+        }else if(dateFns.getHours(new Date()) <= 11){
+            //weatherInfo.outdoorActivity.bg = 2; //so it has come to my attention that v2 has two images instead of one, whatever ig
+            return 14;
+        }else if(dateFns.getHours(new Date()) <= 16){
+            weatherInfo.outdoorActivity.bg = 3;
+            return 19;
+        }
+        return 9;
+    }
+    var url = "https://api.weather.com/v3/wx/forecast/hourly/1day?geocode=" + locationConfig.mainCity.lat + "," + locationConfig.mainCity.lon + "&format=json&units=e&language=en-US&apiKey=" + api_key;
+    $.getJSON(url, function(data){
+        try {
+            for(let i = 0; i < data.validTimeLocal.length; i++){
+                if(dateFns.getHours(data.validTimeLocal[i]) == oaCurrent()){
+                    weatherInfo.outdoorActivity.time = `${dateFns.format(data.validTimeLocal[i], 'h')}${oaCurrent() == 9 ? "am" : "pm"} ${data.dayOfWeek[i]}`;
+                    weatherInfo.outdoorActivity.temp = data.temperature[i];
+                    weatherInfo.outdoorActivity.cond = data.wxPhraseLong[i];
+                    weatherInfo.outdoorActivity.icon = data.iconCodeExtend[i];
+                    weatherInfo.outdoorActivity.wind = data.windDirectionCardinal[i] + " " + data.windSpeed[i];
+                    if(data.temperatureHeatIndex[i] > data.temperature[i] + 3){
+                        weatherInfo.outdoorActivity.feelslike.type = "Heat Index";
+                        weatherInfo.outdoorActivity.feelslike.val = data.temperatureHeatIndex[i];
+                    }else if(data.temperatureWindChill[i] < data.temperature[i] - 3){
+                        weatherInfo.outdoorActivity.feelslike.type = "Wind Chill";
+                        weatherInfo.outdoorActivity.feelslike.val = data.temperatureWindChill[i];
+                    }
+                    break;
                 }
             }
-        })
-    },500)
+        } catch (error) {
+            weatherInfo.outdoorActivity.noReport = true;
+        }
+    }).fail(function(){
+        weatherInfo.outdoorActivity.noReport = true;
+    })
 }
