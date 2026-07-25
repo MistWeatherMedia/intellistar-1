@@ -418,11 +418,16 @@ var slidePrograms = {
         $('.map .header').fadeIn(167, 'linear');
         var mapDivs = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"]
         for (let i = 0; i < locationConfig.regionalMap.map.length; i++) {
-            $(`.map-cities .city.${mapDivs[i]}`).fadeIn(0);
-            $(`.map-cities .city.${mapDivs[i]} .city-name`).text(locationConfig.regionalMap.map[i].name);
-            $(`.map-cities .city.${mapDivs[i]}`).css({ left: locationConfig.regionalMap.map[i].left, top: locationConfig.regionalMap.map[i].top });
-            $(`.map-cities .city.${mapDivs[i]} .temp`).text(weatherInfo.map.mapCities[i].current.temp);
-            getIcon($(`.map-cities .city.${mapDivs[i]} .icon`), weatherInfo.map.mapCities[i].current.icon, "current", "large");
+            try {
+                $(`.map-cities .city.${mapDivs[i]}`).fadeIn(0);
+                $(`.map-cities .city.${mapDivs[i]} .city-name`).text(locationConfig.regionalMap.map[i].name);
+                $(`.map-cities .city.${mapDivs[i]}`).css({ left: locationConfig.regionalMap.map[i].left, top: locationConfig.regionalMap.map[i].top });
+                $(`.map-cities .city.${mapDivs[i]} .temp`).text(weatherInfo.map.mapCities[i].current.temp);
+                getIcon($(`.map-cities .city.${mapDivs[i]} .icon`), weatherInfo.map.mapCities[i].current.icon, "current", "large");
+            } catch (error) {
+                $(`.map-cities .city.${mapDivs[i]} .temp`).text("");
+                getIcon($(`.map-cities .city.${mapDivs[i]} .icon`), "blank", "current", "large");
+            }
         }
 
         setTimeout(() => {
@@ -440,11 +445,16 @@ var slidePrograms = {
         $('.map .header').fadeIn(167, 'linear');
         var mapDivs = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"]
         for (let i = 0; i < locationConfig.regionalMap.map.length; i++) {
-            $(`.map-cities .city.${mapDivs[i]}`).fadeIn((midx == 0 ? 0 : 167), 'linear');
-            $(`.map-cities .city.${mapDivs[i]} .city-name`).text(locationConfig.regionalMap.map[i].name);
-            $(`.map-cities .city.${mapDivs[i]}`).css({ left: locationConfig.regionalMap.map[i].left, top: locationConfig.regionalMap.map[i].top });
-            $(`.map-cities .city.${mapDivs[i]} .temp`).text(weatherInfo.map.mapCities[i].forecasts[midx].temp);
-            getIcon($(`.map-cities .city.${mapDivs[i]} .icon`), weatherInfo.map.mapCities[i].forecasts[midx].icon, "forecast", "large");
+            try {
+                $(`.map-cities .city.${mapDivs[i]}`).fadeIn((midx == 0 ? 0 : 167), 'linear');
+                $(`.map-cities .city.${mapDivs[i]} .city-name`).text(locationConfig.regionalMap.map[i].name);
+                $(`.map-cities .city.${mapDivs[i]}`).css({ left: locationConfig.regionalMap.map[i].left, top: locationConfig.regionalMap.map[i].top });
+                $(`.map-cities .city.${mapDivs[i]} .temp`).text(weatherInfo.map.mapCities[i].forecasts[midx].temp);
+                getIcon($(`.map-cities .city.${mapDivs[i]} .icon`), weatherInfo.map.mapCities[i].forecasts[midx].icon, "forecast", "large");
+            } catch (error) {
+                $(`.map-cities .city.${mapDivs[i]} .temp`).text("");
+                getIcon($(`.map-cities .city.${mapDivs[i]} .icon`), "blank");
+            }
         }
 
         setTimeout(() => {

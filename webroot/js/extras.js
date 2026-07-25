@@ -878,7 +878,9 @@ function numToWord(num) {
 
 function getIcon(div, iconCode, type, size) {
     //"large", "medium", "small", or "map"
-    if (iconCode != "blank") {
+    if (iconCode == "blank" || iconCode == null) {
+        div.css({ "background-image": "url(images/icons/blank.apng)", "background-size": "100% 100%" })
+    } else {
         var sizepath = ""
         if (size == "large") {
             sizepath = "large/"
@@ -900,8 +902,6 @@ function getIcon(div, iconCode, type, size) {
         } else if (type == "ldl") {
             div.css({ "background-image": "url(images/icons/" + appearanceSettings.iconSet + "/stills/" + codeToCurrent[iconCode].iconFile + ".mv.png)", "background-size": "100% 100%" })
         }
-    } else {
-        div.css({ "background-image": "url(images/icons/blank.png)", "background-size": "100% 100%" })
     }
 }
 function getCond(iconCode, type) {

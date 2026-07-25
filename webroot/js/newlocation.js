@@ -63,6 +63,7 @@ async function getMainCity(query) {
         })
     } else if (locationSettings.mainCity.autoFind == false) {
         $.getJSON("https://api.weather.com/v3/location/point?" + locationSettings.mainCity.type + "=" + locationSettings.mainCity.val + "&language=en-US&format=json&apiKey=" + api_key, function (data) {
+            getMapStyle(data.location.country[0], data.location.adminDistrictCode[0]);
             locationConfig.mainCity.displayname = locationSettings.mainCity.displayname;
             locationConfig.mainCity.extraname = locationSettings.mainCity.extraname;
             locationConfig.mainCity.lat = data.location.latitude;

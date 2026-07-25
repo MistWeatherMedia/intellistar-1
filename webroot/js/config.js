@@ -8,7 +8,7 @@ var appearanceSettings = {
     iconSet: "2007", //Choices are 2007 or 2010. 2010 icons appear in 2010-present versions, 2007 is between 2006-2010.
     ldlType: 'both', //what you want to see on ldl. 'observations' = only observations / 'both' = both / if anything else is put here, the sim will default to only observations
     startupTime: 4000, //How long you want to wait for it to start up.
-    graphicsPackage: 2008, //the package for graphics. 2007 will have blue text, while 2008 will have black text. Everything 2009 and above includes blue LDL. 2010 changes the icons.
+    graphicsPackage: 2010, //the package for graphics. 2007 will have blue text, while 2008 will have black text. Everything 2009 and above includes blue LDL. 2010 changes the icons.
     version: "1.2"
 }
 
