@@ -1374,6 +1374,20 @@ var slideFlavors = {
         },
         {
             flavor: '60',
+            bulletin: false,
+            precip: false,
+            order: [
+                {function:"currentConditions",slideDelay:7500},
+                {function:"mapCurrent",slideDelay:7500},
+                {function:"radarDoppler",slideDelay:7500},
+                {function:"almanac",slideDelay:7500},
+                {function:"daypartForecast",slideDelay:7500},
+                {function:"mapForecast",slides:2,slideDelay:7500},
+                {function:"weekAhead",slideDelay:7500},
+            ]
+        },
+        {
+            flavor: '60',
             bulletin: true,
             precip: false,
             order: [
