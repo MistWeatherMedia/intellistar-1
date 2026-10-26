@@ -1,4 +1,4 @@
-var api_key = 'e1f10a1e78da46f5b10a1e78da96f525';
+var api_key = '71f92ea9dd2f4790b92ea9dd2f779061';
 var map_key = 'YOUR_MAP_KEY';
 var traf_key = 'YOUR_TRAFFIC_KEY';
 
